@@ -53,7 +53,8 @@ export default function App() {
                 path="/chat/:id"
                 element={
                     <PrivateRoute isLoggedIn={isLoggedIn}>
-                        <Chat socket={socket} />
+                        <Chat 
+                            socket={socket} />
                     </PrivateRoute>
                 } />
         </Routes>

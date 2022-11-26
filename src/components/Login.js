@@ -6,10 +6,13 @@ export default function Login({
 }) {
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="login" onSubmit={handleSubmit}>
+            <label htmlFor="username">Enter a username:</label>
             <input 
                 type="text"
-                placeholder="Enter a username"
+                name="username"
+                placeholder="Username"
+                autoFocus
                 onChange={(event) => setUserName(event.target.value)}
                 required />
             <input type="submit" value="Login" />

@@ -7,13 +7,15 @@ export default function Home({ userName, handleLogout }) {
             <header>
                 <button onClick={handleLogout}>Logout</button>
             </header>
-            <div className="welcome">
-                <h2>Welcome {userName}! Get ready to chat with new and old friends</h2>
-            </div>
-            <div className="utilities">
-                <button>Start new chatroom</button>
-                <button>Enter existing chatroom</button>
-            </div>
+            <main>
+                <div className="welcome">
+                    <h2>Welcome {userName}! Get ready to chat with new and old friends</h2>
+                </div>
+                <div className="utilities">
+                    <button>Start new chatroom</button>
+                    <button>Enter existing chatroom</button>
+                </div>
+            </main>
         </div>
     )
 }
