@@ -1,4 +1,5 @@
 const express = require("express");
+
 const PORT = 4000;
 const app = express();
 
@@ -30,6 +31,6 @@ app.get('/', (req, res, next) => {
     res.send("hello")
 })
 
-app.listen(PORT, () => {
+http.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`)
 })
