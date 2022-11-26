@@ -3,7 +3,7 @@ import ChatBody from "./ChatBody";
 import ChatTools from "./ChatTools";
 import MessageEditor from "./MessageEditor";
 
-export default function Chat() {
+export default function ChatRoom() {
 
     return (
         <div className="chat-container">

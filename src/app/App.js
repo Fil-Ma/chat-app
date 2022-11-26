@@ -5,15 +5,18 @@ import { io } from 'socket.io-client';
 import PrivateRoute from "../components/PrivateRoute";
 import Login from "../components/Login";
 import Home from "../components/Home";
-import Chat from "../components/Chat";
+import ChatRoom from "../components/ChatRoom";
+import JoinChatRoomForm from "../components/JoinChatRoomForm";
 
 const socket = io('http://localhost:4000');
 
 export default function App() {
+    const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userName, setUserName] = useState("");
     const navigate = useNavigate();
 
+    // handle user login
     function submitLogin(event) {
         event.preventDefault();
         if (userName) {
@@ -22,11 +25,18 @@ export default function App() {
         navigate("/home");
     }
 
+    // handle user logout
     function logout(event) {
         event.preventDefault();
         setUserName("");
         setIsLoggedIn(false);
         navigate("/");
+    }
+
+    // handle click on button "join chatroom"
+    function handleClickJoinChatRoom(event) {
+        event.preventDefault();
+        navigate("/join_chatroom");
     }
 
     return (
@@ -45,7 +55,17 @@ export default function App() {
                     <PrivateRoute isLoggedIn={isLoggedIn}>
                         <Home 
                             userName={userName} 
-                            handleLogout={logout} />
+                            handleLogout={logout}
+                            handleClickJoin={handleClickJoinChatRoom} />
+                    </PrivateRoute>
+                } />
+
+            <Route 
+                path="/join_chatroom"
+                element={
+                    <PrivateRoute isLoggedIn={isLoggedIn}>
+                        <JoinChatRoomForm
+                            socket={socket} />
                     </PrivateRoute>
                 } />
 
@@ -53,7 +73,7 @@ export default function App() {
                 path="/chat/:id"
                 element={
                     <PrivateRoute isLoggedIn={isLoggedIn}>
-                        <Chat 
+                        <ChatRoom
                             socket={socket} />
                     </PrivateRoute>
                 } />

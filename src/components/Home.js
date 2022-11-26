@@ -1,6 +1,10 @@
 import React from "react";
 
-export default function Home({ userName, handleLogout }) {
+export default function Home({ 
+    userName, 
+    handleLogout,
+    handleClickJoin 
+}) {
 
     return (
         <div className="home-container">
@@ -12,8 +16,12 @@ export default function Home({ userName, handleLogout }) {
                     <h2>Welcome {userName}! Get ready to chat with new and old friends</h2>
                 </div>
                 <div className="utilities">
-                    <button>Start new chatroom</button>
-                    <button>Enter existing chatroom</button>
+                    <button 
+                        onClick={() => console.log("hi")}
+                    >Start new chatroom</button>
+                    <button
+                        onClick={handleClickJoin}
+                    >Enter existing chatroom</button>
                 </div>
             </main>
         </div>
