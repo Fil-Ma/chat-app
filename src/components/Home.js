@@ -3,7 +3,8 @@ import React from "react";
 export default function Home({ 
     userName, 
     handleLogout,
-    handleClickJoin 
+    handleClickJoin,
+    handleClickCreate
 }) {
 
     return (
@@ -17,7 +18,7 @@ export default function Home({
                 </div>
                 <div className="utilities">
                     <button 
-                        onClick={() => console.log("hi")}
+                        onClick={handleClickCreate}
                     >Start new chatroom</button>
                     <button
                         onClick={handleClickJoin}

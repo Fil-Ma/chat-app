@@ -127,3 +127,56 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+/* styling chat room */
+div.chat-container {
+    inline-size: 60vw;
+    block-size: 80vh;
+    margin: 9vh auto;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    display: flex;
+}
+
+div.chat-body {
+    inline-size: 75%;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-container aside {
+    inline-size: 25%;
+    border-inline-start: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+div.chat-body,
+.chat-container aside {
+    padding: 2rem;
+}
+
+/* styling chat body */
+
+div.messages-container {
+    block-size: 90%;
+}
+
+/* styling chat message editor */
+
+form.message-editor {
+    block-size: 10%;
+}
+
+.message-editor input[type="text"] {
+    block-size: 50%;
+    inline-size: 80%;
+    padding: 0.5rem 1rem;
+}
+
+.message-editor input[type="submit"] {
+    inline-size: calc(20% - 2rem - 4px);
+    block-size: calc(50% + 1rem + 4px);
+    padding: 0.5rem 0;
+    align-items: center;
+    background-color: blue;
+    color: #FFF;
+    border: none;
+}

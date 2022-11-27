@@ -21,6 +21,8 @@ socketIO.on('connection', (socket) => {
     // handle user connection to room
     socket.on('join', ({ name, room }, callback) => {
         let user;
+        console.log("name", name)
+        console.log("room", room)
         try {
             user = addUser({ 
                 id: socket.id, 
@@ -30,7 +32,7 @@ socketIO.on('connection', (socket) => {
         } catch(err) {
             callback(err);
         }
-
+        console.log(user)
         // emit message to the user joining
         socket.emit('message', { 
             user: 'admin', 

@@ -7,6 +7,7 @@ import Login from "../components/Login";
 import Home from "../components/Home";
 import ChatRoom from "../components/ChatRoom";
 import JoinChatRoomForm from "../components/JoinChatRoomForm";
+import NotFound from "../components/NotFound";
 
 const socket = io('http://localhost:4000', { 
     autoConnect: false 
@@ -18,7 +19,7 @@ export default function App() {
 
     // username , room and new message to send in chat
     const [userName, setUserName] = useState("");
-    const [room, setRoom] = useState("");
+    const [room, setRoom] = useState(0);
     const [newMessage, setNewMessage] = useState("");
 
     // messages and users in the room
@@ -76,14 +77,22 @@ export default function App() {
     }
 
     // handle user joining room
-    function handleSubmitJoinChatRoom(event) {
+    function handleEnterChatRoom(event) {
         event.preventDefault();
-        socket.emit("join", {userName, room}, (error) => {
+        socket.emit("join", {name: userName, room}, (error) => {
             if(error) {
                 alert(error);
             }
         });
         navigate(`/chat/${room}`);
+    }
+
+    // handle creation of a new room
+    function handleCreateChatRoom(event) {
+        event.preventDefault();
+        const roomId = Math.floor(Math.random()*9000) + 1000;
+        setRoom(roomId);
+        navigate(`/chat/${roomId}`);
     }
 
     // handle user sending message
@@ -110,6 +119,7 @@ export default function App() {
                         <Home 
                             userName={userName} 
                             handleLogout={logout}
+                            handleClickCreate={handleCreateChatRoom}
                             handleClickJoin={handleClickJoinChatRoom} />
                     </PrivateRoute>
                 } />
@@ -120,7 +130,7 @@ export default function App() {
                     <PrivateRoute isLoggedIn={isLoggedIn}>
                         <JoinChatRoomForm
                             setRoom={setRoom}
-                            handleSubmit={handleSubmitJoinChatRoom} />
+                            handleSubmit={handleEnterChatRoom} />
                     </PrivateRoute>
                 } />
 
@@ -130,15 +140,17 @@ export default function App() {
                     <PrivateRoute isLoggedIn={isLoggedIn}>
                         <ChatRoom
                             roomMessages={roomMessages}
+                            room={room}
+                            users={users}
                             handleSubmit={handleSendMessage}
                             setMessage={setNewMessage} />
                     </PrivateRoute>
                 } />
-            {/*
+            
             <Route 
                 path="*"
                 element={ <NotFound /> } />
-            */}
+            
         </Routes>
     )
 }
