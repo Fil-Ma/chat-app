@@ -14,6 +14,7 @@ export default function App() {
     const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userName, setUserName] = useState("");
+    const [joinChatId, setJoinChatId] = useState(0);
     const navigate = useNavigate();
 
     // handle user login
@@ -37,6 +38,13 @@ export default function App() {
     function handleClickJoinChatRoom(event) {
         event.preventDefault();
         navigate("/join_chatroom");
+    }
+
+    function handleSubmitJoinChatRoom(event) {
+        event.preventDefault();
+        if (typeof joinChatId === "number" && joinChatId !== 0) {
+            navigate(`/chat/${joinChatId}`);
+        }
     }
 
     return (
@@ -65,7 +73,9 @@ export default function App() {
                 element={
                     <PrivateRoute isLoggedIn={isLoggedIn}>
                         <JoinChatRoomForm
-                            socket={socket} />
+                            socket={socket} 
+                            setJoinChatId={setJoinChatId}
+                            handleSubmit={handleSubmitJoinChatRoom} />
                     </PrivateRoute>
                 } />
 
