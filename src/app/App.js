@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { io } from 'socket.io-client';
 
@@ -8,14 +8,39 @@ import Home from "../components/Home";
 import ChatRoom from "../components/ChatRoom";
 import JoinChatRoomForm from "../components/JoinChatRoomForm";
 
-const socket = io('http://localhost:4000');
+const socket = io('http://localhost:4000', { 
+    autoConnect: false 
+});
 
 export default function App() {
     const [socketIsConnected, setSocketIsConnected] = useState(socket.connected);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    // username , room and new message to send in chat
     const [userName, setUserName] = useState("");
-    const [joinChatId, setJoinChatId] = useState(0);
+    const [room, setRoom] = useState("");
+    const [newMessage, setNewMessage] = useState("");
+
+    // messages and users in the room
+    const [roomMessages, setRoomMessages] = useState("");
+    const [users, setUsers] = useState([]); 
+
     const navigate = useNavigate();
+
+    // listen to event of type message to refresh messages list
+    useEffect(() => {
+        socket.on('message', (message) => setRoomMessages(
+            [
+                ...roomMessages, 
+                message
+            ]
+        ));
+      }, [socket, roomMessages]);
+    
+    // listen to event of type room data to refresh list of users in room
+    useEffect(() => {
+        socket.on('roomData', ({ roomUsers }) => setUsers(roomUsers));
+    }, [socket, users]);
 
     // handle user login
     function submitLogin(event) {
@@ -24,6 +49,10 @@ export default function App() {
             setIsLoggedIn(true);
         }
         navigate("/home");
+        if (!socketIsConnected) {
+            socket.connect();
+            setSocketIsConnected(true);
+        }
     }
 
     // handle user logout
@@ -32,6 +61,12 @@ export default function App() {
         setUserName("");
         setIsLoggedIn(false);
         navigate("/");
+        // disconnect socket
+        if (socketIsConnected) {
+            socket.disconnect();
+            socket.emit("disconnect");
+            setSocketIsConnected(false);
+        }
     }
 
     // handle click on button "join chatroom"
@@ -40,11 +75,22 @@ export default function App() {
         navigate("/join_chatroom");
     }
 
+    // handle user joining room
     function handleSubmitJoinChatRoom(event) {
         event.preventDefault();
-        if (typeof joinChatId === "number" && joinChatId !== 0) {
-            navigate(`/chat/${joinChatId}`);
-        }
+        socket.emit("join", {userName, room}, (error) => {
+            if(error) {
+                alert(error);
+            }
+        });
+        navigate(`/chat/${room}`);
+    }
+
+    // handle user sending message
+    function handleSendMessage(event) {
+        event.preventDefault();
+        socket.emit("sendMessage", newMessage);
+        setNewMessage("");
     }
 
     return (
@@ -73,20 +119,26 @@ export default function App() {
                 element={
                     <PrivateRoute isLoggedIn={isLoggedIn}>
                         <JoinChatRoomForm
-                            socket={socket} 
-                            setJoinChatId={setJoinChatId}
+                            setRoom={setRoom}
                             handleSubmit={handleSubmitJoinChatRoom} />
                     </PrivateRoute>
                 } />
 
             <Route 
-                path="/chat/:id"
+                path="/chat/:room"
                 element={
                     <PrivateRoute isLoggedIn={isLoggedIn}>
                         <ChatRoom
-                            socket={socket} />
+                            roomMessages={roomMessages}
+                            handleSubmit={handleSendMessage}
+                            setMessage={setNewMessage} />
                     </PrivateRoute>
                 } />
+            {/*
+            <Route 
+                path="*"
+                element={ <NotFound /> } />
+            */}
         </Routes>
     )
 }

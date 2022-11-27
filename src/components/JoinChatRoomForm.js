@@ -2,7 +2,7 @@ import React from "react";
 
 export default function JoinChatRoomForm({
     handleSubmit,
-    setJoinChatId
+    setRoom
 }) {
 
     return (
@@ -12,7 +12,7 @@ export default function JoinChatRoomForm({
                 type="number"
                 name="chat-id"
                 placeholder="Chat code"
-                onChange={(e) => setJoinChatId(e.target.value)}
+                onChange={(e) => setRoom(e.target.value)}
                 required
                 autoFocus />
             <input type="submit" value="Join now" />
