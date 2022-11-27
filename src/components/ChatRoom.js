@@ -8,16 +8,18 @@ export default function ChatRoom({
     room,
     users,
     handleSubmit,
-    setMessage
+    newMessage,
+    setNewMessage
 }) {
-
+    
     return (
         <div className="chat-container">
             <div className="chat-body">
                 <ChatBody 
                     roomMessages={roomMessages} />
                 <MessageEditor 
-                    setMessage={setMessage}
+                    newMessage={newMessage}
+                    setNewMessage={setNewMessage}
                     handleSubmit={handleSubmit} />
             </div>
             <ChatTools 

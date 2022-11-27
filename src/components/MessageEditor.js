@@ -1,12 +1,17 @@
 import React from "react";
 
-export default function MessageEditor({ setMessage, handleSubmit }) {
+export default function MessageEditor({ 
+    setNewMessage, 
+    newMessage,
+    handleSubmit 
+}) {
 
     return (
         <form className="message-editor" onSubmit={handleSubmit}>
             <input 
                 type="text"
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={(e) => setNewMessage(e.target.value)}
+                value={newMessage}
                 placeholder="start texting" />
             <input type="submit" value="Send" />
         </form>

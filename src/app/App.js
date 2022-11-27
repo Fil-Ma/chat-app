@@ -23,7 +23,7 @@ export default function App() {
     const [newMessage, setNewMessage] = useState("");
 
     // messages and users in the room
-    const [roomMessages, setRoomMessages] = useState("");
+    const [roomMessages, setRoomMessages] = useState([]);
     const [users, setUsers] = useState([]); 
 
     const navigate = useNavigate();
@@ -36,11 +36,25 @@ export default function App() {
                 message
             ]
         ));
+
+        return () => {
+            socket.off('message');
+        };
       }, [socket, roomMessages]);
     
     // listen to event of type room data to refresh list of users in room
     useEffect(() => {
-        socket.on('roomData', ({ roomUsers }) => setUsers(roomUsers));
+        socket.on('roomData', ({ roomUsers }) => {
+            if (roomUsers.length > 0) {
+                setUsers(roomUsers)
+            } else {
+                setUsers([])
+            }
+        });
+
+        return () => {
+            socket.off('roomData');
+        };
     }, [socket, users]);
 
     // handle user login
@@ -92,6 +106,11 @@ export default function App() {
         event.preventDefault();
         const roomId = Math.floor(Math.random()*9000) + 1000;
         setRoom(roomId);
+        socket.emit("join", {name: userName, room: roomId}, (error) => {
+            if(error) {
+                alert(error);
+            }
+        });
         navigate(`/chat/${roomId}`);
     }
 
@@ -143,7 +162,8 @@ export default function App() {
                             room={room}
                             users={users}
                             handleSubmit={handleSendMessage}
-                            setMessage={setNewMessage} />
+                            newMessage={newMessage}
+                            setNewMessage={setNewMessage} />
                     </PrivateRoute>
                 } />
             

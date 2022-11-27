@@ -1,11 +1,13 @@
 const express = require("express");
-const { addUser, removeUser, getUser, getUsersInRoom } = require("./server/users");
 const PORT = 4000;
 const app = express();
 
 const cors = require("cors");
 const { io } = require("socket.io-client");
 const http = require("http").Server(app);
+
+const UserService = require("./server/users");
+const UserServiceInstance = new UserService();
 
 app.use(cors());
 
@@ -15,24 +17,27 @@ const socketIO = require('socket.io')(http, {
     }
 });
 
+// handle socket.io operations
 socketIO.on('connection', (socket) => {
-    console.log(`${socket.id} user just connected!`);
 
+    socket.on('connect', () => {
+        console.log(`${socket.id} user just connected!`);
+    });
+    
     // handle user connection to room
-    socket.on('join', ({ name, room }, callback) => {
-        let user;
-        console.log("name", name)
-        console.log("room", room)
-        try {
-            user = addUser({ 
-                id: socket.id, 
-                name, 
-                room
-            });
-        } catch(err) {
-            callback(err);
+    socket.on('join', (data) => {
+        
+        const { name, room } = data;
+        const user = UserServiceInstance.addUser({ 
+            id: socket.id, 
+            name, 
+            room
+        });
+
+        if (!user) {
+            return;
         }
-        console.log(user)
+        
         // emit message to the user joining
         socket.emit('message', { 
             user: 'admin', 
@@ -52,15 +57,14 @@ socketIO.on('connection', (socket) => {
 
         socketIO.to(user.room).emit('roomData', {
             room: user.room,
-            users: getUsersInRoom(user.room)
+            users: UserServiceInstance.getUsersInRoom(user.room)
         });
-        callback();
     });
   
     //sends the message to all the users on the server
-    socket.on('sendMessage', (message, callback) => {
+    socket.on('sendMessage', (message) => {
         
-        const user = getUser(socket.id);
+        const user = UserServiceInstance.getUser(socket.id);
         socketIO.to(user.room).emit(
             'message', 
             { 
@@ -73,14 +77,13 @@ socketIO.on('connection', (socket) => {
             'roomData',
             {
                 room: user.room,
-                users: getUsersInRoom(user.room)
+                users: UserServiceInstance.getUsersInRoom(user.room)
             }
         )
-        callback();
     });
   
     socket.on('disconnect', () => {
-        const user = removeUser(socket.id);
+        const user = UserServiceInstance.removeUser(socket.id);
         if (user) {
             io.to(user.room).emit(
                 'message',

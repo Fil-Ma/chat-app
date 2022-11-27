@@ -6,10 +6,10 @@ export default function ChatBody({ roomMessages }) {
         <div className="messages-container">
             {   
                 roomMessages.length > 0 
-                    ? roomMessages.map((message) => {
+                    ? roomMessages.map((message, index) => {
                         return (
-                            <p>
-                                {message}
+                            <p key={index}>
+                                {message.text}
                             </p>
                         )
                     })
