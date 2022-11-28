@@ -127,8 +127,9 @@ socketIO.on('connection', (socket) => {
     });
 });
 
+// api get request to check if username already exists
 app.get(
-    '/api/:userName', 
+    '/api/users/:userName', 
     [
         param('userName', 'Username must be of min 3, max 12 characters')
             .trim()
@@ -162,6 +163,43 @@ app.get(
     }
 );
 
+// api get request to check if room exists
+app.get(
+    '/api/rooms/:roomId', 
+    [
+        param('roomId', 'Invalid room code')
+            .trim()
+            .escape()
+            .isString()
+    ],
+    (req, res, next) => {
+        const { roomId } = req.params;
+
+        try {
+            const errors = validationResult(req).array();
+            if (errors.length > 0) {
+                throw new Error(errors[0].msg);
+            }
+
+            const roomInt = parseInt(roomId);
+            if (typeof roomInt !== "number" || roomInt < 1000 || roomInt > 10000) {
+                throw new Error("Invalid room code");
+            } 
+
+            const room = UserServiceInstance.checkIfRoomExists(roomId);
+            if (!room) {
+                throw new Error("Room does not exists");
+            }
+
+            res.status(200).send();
+
+        } catch(err) {
+            next(err);
+        }
+    }
+);
+
+// error handler
 app.use((err, req, res, next) => {
     if (!err.message) {
       return res.status(err.status).send( "An error occured" );

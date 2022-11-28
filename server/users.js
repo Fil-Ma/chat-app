@@ -74,4 +74,17 @@ module.exports = class UserService {
         const usersInRoom = this.users.filter((user) => user.room === room);
         return usersInRoom;
     }
+
+    /**
+     * Retrieve a room if it exists in database
+     * 
+     * @param {String} room | room number
+     * @returns {Object|null} the room in database
+     */
+     checkIfRoomExists(room) {
+        const roomInDb = this.users.find((element) => element.room === room);
+        if (roomInDb) return roomInDb;
+        return null;
+    }
+    
 }

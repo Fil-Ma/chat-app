@@ -104,7 +104,6 @@ form.join-chat > * {
 
 .join-chat input[type="text"] {
     margin-block-start: 2rem;
-    margin-block-end: 4rem;
     padding: 0.5rem 1rem;
     outline-color: blue;
 }
@@ -115,11 +114,18 @@ form.join-chat > * {
     color: #FFF;
     border: none;
     border-radius: 0.5rem;
+    margin-block-start: 3rem;
 }
 
 .join-chat input[type="submit"]:hover,
 .join-chat input[type="submit"]:focus {
     cursor: pointer;
+}
+
+.join-room-error {
+    font-size: 0.8rem;
+    color: red;
+    margin-block-start: 1rem;
 }
 
 /* styling chat room */

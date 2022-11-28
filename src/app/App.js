@@ -9,7 +9,7 @@ import ChatRoom from "../components/ChatRoom";
 import JoinChatRoomForm from "../components/JoinChatRoomForm";
 import NotFound from "../components/NotFound";
 
-import { checkUsernameTaken } from "../api/users";
+import { checkUsernameTaken, checkRoomExists } from "../api/utils";
 
 const socket = io('http://localhost:4000', { 
     autoConnect: false 
@@ -30,6 +30,7 @@ export default function App() {
     
     // errors
     const [loginError, setLoginError] = useState(null);
+    const [joinRoomError, setJoinRoomError] = useState(null);
 
     const navigate = useNavigate();
 
@@ -67,20 +68,20 @@ export default function App() {
     // handle user login
     async function submitLogin(event) {
         event.preventDefault();
-        // check if userName is valid
-        if (typeof userName !== "string" || userName.length < 3 || userName.length > 12) {
-            setLoginError(new Error("Your username must be more than 3 and less than 12 characters long"));
-            setUserName("");
-            return;
-        }
-        // check if userName already exists
         try {
+            // check if userName is valid
+            if (typeof userName !== "string" || userName.length < 3 || userName.length > 12) {
+                throw new Error("Your username must be more than 3 and less than 12 characters long");
+            }
+
+            // check if userName already exists
             await checkUsernameTaken(userName);
         } catch(err) {
             setLoginError(err);
             setUserName("");
             return;
         }
+
         // login
         setIsLoggedIn(true);
         setLoginError(null);
@@ -91,7 +92,7 @@ export default function App() {
             setSocketIsConnected(true);
         }
         
-    }
+    };
 
     // handle user logout
     function logout(event) {
@@ -104,24 +105,39 @@ export default function App() {
             socket.disconnect();
             setSocketIsConnected(false);
         }
-    }
+    };
 
     // handle click on button "join chatroom"
     function handleClickJoinChatRoom(event) {
         event.preventDefault();
         navigate("/join_chatroom");
-    }
+    };
 
     // handle user joining room
-    function handleEnterChatRoom(event) {
+    async function handleEnterChatRoom(event) {
         event.preventDefault();
+        try {
+            const roomInt = parseInt(room);
+            if (typeof roomInt !== "number" || roomInt < 1000 || roomInt > 10000) {
+                throw new Error("Invalid room code");
+            }
+            await checkRoomExists(room);
+
+        } catch(err) {
+            setJoinRoomError(err);
+            setRoom("");
+            return;
+        }
+        
+        setJoinRoomError(null);
+
         socket.emit("join", {name: userName, room}, (error) => {
             if(error) {
                 alert(error);
             }
         });
         navigate(`/chat/${room}`);
-    }
+    };
 
     // handle creation of a new room
     function handleCreateChatRoom(event) {
@@ -135,14 +151,14 @@ export default function App() {
             }
         });
         navigate(`/chat/${newRoom}`);
-    }
+    };
 
     // handle user sending message
     function handleSendMessage(event) {
         event.preventDefault();
         socket.emit("sendMessage", newMessage);
         setNewMessage("");
-    }
+    };
 
     // handle leave room
     function handleClickLeaveRoom(event) {
@@ -153,7 +169,7 @@ export default function App() {
         setRoomMessages([])
         setRoomUsers([]);
         navigate("/home");
-    }
+    };
 
     return (
         <Routes>
@@ -185,6 +201,8 @@ export default function App() {
                     <PrivateRoute isLoggedIn={isLoggedIn}>
                         <JoinChatRoomForm
                             setRoom={setRoom}
+                            room={room}
+                            joinRoomError={joinRoomError} 
                             handleSubmit={handleEnterChatRoom} />
                     </PrivateRoute>
                 } />
