@@ -30,12 +30,14 @@ export default function App() {
 
     // listen to event of type message to refresh messages list
     useEffect(() => {
-        socket.on('message', (message) => setRoomMessages(
-            [
-                ...roomMessages, 
-                message
-            ]
-        ));
+        socket.on('message', (message) => {
+            setRoomMessages(
+                [
+                    ...roomMessages, 
+                    message
+                ]
+            );
+        });
 
         return () => {
             socket.off('message');
@@ -45,7 +47,7 @@ export default function App() {
     // listen to event of type room data to refresh list of users in room
     useEffect(() => {
         socket.on('roomData', ({ roomUsers }) => {
-            if (roomUsers.length > 0) {
+            if (roomUsers) {
                 setUsers(roomUsers)
             } else {
                 setUsers([])
@@ -159,7 +161,6 @@ export default function App() {
                     <PrivateRoute isLoggedIn={isLoggedIn}>
                         <ChatRoom
                             roomMessages={roomMessages}
-                            room={room}
                             users={users}
                             handleSubmit={handleSendMessage}
                             newMessage={newMessage}

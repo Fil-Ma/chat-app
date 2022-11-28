@@ -12,7 +12,8 @@ export default function MessageEditor({
                 type="text"
                 onChange={(e) => setNewMessage(e.target.value)}
                 value={newMessage}
-                placeholder="start texting" />
+                autoFocus
+                placeholder="Text" />
             <input type="submit" value="Send" />
         </form>
     )
