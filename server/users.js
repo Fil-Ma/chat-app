@@ -1,3 +1,4 @@
+"use strict";
 
 module.exports = class UserService {
     constructor() {
@@ -12,6 +13,7 @@ module.exports = class UserService {
      */
     addUser({ id, name, room}) {
         name.trim().toLowerCase();
+        room.trim().toLowerCase();
 
         if (this.users.find((user) => user.room === room && user.name === name)) {
             return null;
@@ -29,20 +31,19 @@ module.exports = class UserService {
      * @returns {Object|null} returns user if found
      */
     removeUser(id) {
-        const userIndex = this.users.indexOf((user) => user.id === id);
-        const user = this.users[userIndex];
-
-        if (userIndex !== -1) {
-            this.users.splice(userIndex, 1);
-            return user;
+        const index = this.users.find((user) => {
+            user.id === id
+        });
+     
+        if(index !== -1) {
+            return this.users.splice(index,1)[0];
         }
-        return null;
     }
 
     /**
      * Retrieve user from "database"
      * 
-     * @param {String} id 
+     * @param {String} id | user id
      * @returns {Object|null} the user in database
      */
     getUser(id) {
@@ -54,7 +55,7 @@ module.exports = class UserService {
     /**
      * Retrieve all the user in one room
      * 
-     * @param {String} room 
+     * @param {Number} room 
      * @returns {Array} array of user object that are in one room
      */
     getUsersInRoom(room) {

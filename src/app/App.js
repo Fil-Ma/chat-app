@@ -19,7 +19,7 @@ export default function App() {
 
     // username , room and new message to send in chat
     const [userName, setUserName] = useState("");
-    const [room, setRoom] = useState(0);
+    const [room, setRoom] = useState("");
     const [newMessage, setNewMessage] = useState("");
 
     // messages and users in the room
@@ -37,7 +37,6 @@ export default function App() {
                     message
                 ]
             );
-            console.log("new message incoming", message)
         });
         
         return () => {
@@ -53,7 +52,6 @@ export default function App() {
             } else {
                 setRoomUsers([])
             }
-            console.log("refreshing users list", users)
         });
         
         return () => {
@@ -83,7 +81,6 @@ export default function App() {
         // disconnect socket
         if (socketIsConnected) {
             socket.disconnect();
-            socket.emit("disconnect");
             setSocketIsConnected(false);
         }
     }
@@ -109,13 +106,14 @@ export default function App() {
     function handleCreateChatRoom(event) {
         event.preventDefault();
         const roomId = Math.floor(Math.random()*9000) + 1000;
-        setRoom(roomId);
-        socket.emit("join", {name: userName, room: roomId}, (error) => {
+        const newRoom = roomId.toString();
+        setRoom(newRoom);
+        socket.emit("join", {name: userName, room: newRoom}, (error) => {
             if(error) {
                 alert(error);
             }
         });
-        navigate(`/chat/${roomId}`);
+        navigate(`/chat/${newRoom}`);
     }
 
     // handle user sending message
@@ -128,8 +126,11 @@ export default function App() {
     // handle leave room
     function handleClickLeaveRoom(event) {
         event.preventDefault();
-        socket.emit("leave", { name: userName, room });
-        setRoom(0);
+        socket.emit("leave");
+        // reset states
+        setRoom("");
+        setRoomMessages([])
+        setRoomUsers([]);
         navigate("/home");
     }
 

@@ -25,17 +25,19 @@ socketIO.on('connection', (socket) => {
     });
     
     // handle user connection to room
-    socket.on('join', (data) => {
+    socket.on('join', (data, callback) => {
         
         const { name, room } = data;
-        const user = UserServiceInstance.addUser({ 
-            id: socket.id, 
-            name, 
-            room
-        });
+        let user;
 
-        if (!user) {
-            return;
+        try {
+            user = UserServiceInstance.addUser({ 
+                id: socket.id, 
+                name, 
+                room
+            });
+        } catch(err) {
+            callback(err)
         }
         
         // emit message to the user joining
@@ -52,7 +54,6 @@ socketIO.on('connection', (socket) => {
                 text: `${user.name}, has joined` 
             }
         );
-        socket.broadcast.to(user.room).emit("hello")
 
         socket.join(user.room);
         
@@ -60,13 +61,15 @@ socketIO.on('connection', (socket) => {
             room: user.room,
             users: UserServiceInstance.getUsersInRoom(user.room)
         });
+
+        callback();
     });
 
-    socket.on("leave", (data) => {
-        const { name, room } = data;
-        const user = UserServiceInstance.removeUser(socket.id); // add method remove from room
-    
-        socket.leave();
+    socket.on("leave", () => {
+
+        const user = UserServiceInstance.removeUser(socket.id);
+        
+        socket.leave(user.room);
 
         socket.broadcast.to(user.room).emit(
             'message', 
