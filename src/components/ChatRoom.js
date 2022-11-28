@@ -9,6 +9,7 @@ export default function ChatRoom({
     roomMessages,
     users,
     handleSubmit,
+    handleLeave,
     newMessage,
     setNewMessage
 }) {
@@ -24,6 +25,7 @@ export default function ChatRoom({
                     handleSubmit={handleSubmit} />
             </div>
             <ChatTools 
+                handleLeave={handleLeave}
                 users={users}
                 room={room} />
         </div>

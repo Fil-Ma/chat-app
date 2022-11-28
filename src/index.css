@@ -217,3 +217,16 @@ form.message-editor {
     color: #FFF;
     border: none;
 }
+
+/* styling chat tools aside */
+button.leave-btn {
+    padding: 0.4rem 0.8rem;
+    background-color: lightcoral;
+}
+
+div.room-general-info {
+    margin-block-end: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

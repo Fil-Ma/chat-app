@@ -52,9 +52,30 @@ socketIO.on('connection', (socket) => {
                 text: `${user.name}, has joined` 
             }
         );
+        socket.broadcast.to(user.room).emit("hello")
 
         socket.join(user.room);
+        
+        socketIO.to(user.room).emit('roomData', {
+            room: user.room,
+            users: UserServiceInstance.getUsersInRoom(user.room)
+        });
+    });
 
+    socket.on("leave", (data) => {
+        const { name, room } = data;
+        const user = UserServiceInstance.removeUser(socket.id); // add method remove from room
+    
+        socket.leave();
+
+        socket.broadcast.to(user.room).emit(
+            'message', 
+            { 
+                user: "admin",
+                text: `${user.name}, has left the room` 
+            }
+        );
+        
         socketIO.to(user.room).emit('roomData', {
             room: user.room,
             users: UserServiceInstance.getUsersInRoom(user.room)
@@ -65,6 +86,7 @@ socketIO.on('connection', (socket) => {
     socket.on('sendMessage', (message) => {
         
         const user = UserServiceInstance.getUser(socket.id);
+        
         socketIO.to(user.room).emit(
             'message', 
             { 
@@ -72,7 +94,7 @@ socketIO.on('connection', (socket) => {
                 text: message
             }
         );
-
+        
         socketIO.to(user.room).emit(
             'roomData',
             {

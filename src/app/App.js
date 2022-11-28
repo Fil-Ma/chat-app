@@ -24,7 +24,7 @@ export default function App() {
 
     // messages and users in the room
     const [roomMessages, setRoomMessages] = useState([]);
-    const [users, setUsers] = useState([]); 
+    const [roomUsers, setRoomUsers] = useState([]); 
 
     const navigate = useNavigate();
 
@@ -37,8 +37,9 @@ export default function App() {
                     message
                 ]
             );
+            console.log("new message incoming", message)
         });
-
+        
         return () => {
             socket.off('message');
         };
@@ -46,18 +47,19 @@ export default function App() {
     
     // listen to event of type room data to refresh list of users in room
     useEffect(() => {
-        socket.on('roomData', ({ roomUsers }) => {
-            if (roomUsers) {
-                setUsers(roomUsers)
+        socket.on('roomData', ({ users }) => {
+            if (users) {
+                setRoomUsers(users);
             } else {
-                setUsers([])
+                setRoomUsers([])
             }
+            console.log("refreshing users list", users)
         });
-
+        
         return () => {
             socket.off('roomData');
         };
-    }, [socket, users]);
+    }, [socket, roomUsers]);
 
     // handle user login
     function submitLogin(event) {
@@ -123,6 +125,14 @@ export default function App() {
         setNewMessage("");
     }
 
+    // handle leave room
+    function handleClickLeaveRoom(event) {
+        event.preventDefault();
+        socket.emit("leave", { name: userName, room });
+        setRoom(0);
+        navigate("/home");
+    }
+
     return (
         <Routes>
             <Route 
@@ -161,7 +171,8 @@ export default function App() {
                     <PrivateRoute isLoggedIn={isLoggedIn}>
                         <ChatRoom
                             roomMessages={roomMessages}
-                            users={users}
+                            users={roomUsers}
+                            handleLeave={handleClickLeaveRoom}
                             handleSubmit={handleSendMessage}
                             newMessage={newMessage}
                             setNewMessage={setNewMessage} />
