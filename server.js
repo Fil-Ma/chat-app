@@ -1,6 +1,6 @@
 const express = require("express");
 const helmet = require("helmet");
-const morgan = require("morgan");
+// const morgan = require("morgan");
 const { param, validationResult } = require("express-validator");
 
 const PORT = 4000;
@@ -15,7 +15,7 @@ const UserServiceInstance = new UserService();
 
 app.use(cors());
 app.use(helmet());
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 
 const socketIO = require('socket.io')(http, {
     cors: {
