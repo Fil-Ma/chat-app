@@ -1,10 +1,14 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 
 export default function Login({
     handleSubmit,
-    setUserName
+    userName,
+    setUserName,
+    loginError
 }) {
-
+    
     return (
         <form className="login" onSubmit={handleSubmit}>
             <label htmlFor="username">Enter a username:</label>
@@ -13,8 +17,17 @@ export default function Login({
                 name="username"
                 placeholder="Username"
                 autoFocus
+                value={userName}
+                pattern="^[A-Za-z\d]+$"
                 onChange={(event) => setUserName(event.target.value)}
                 required />
+            { 
+                loginError && (
+                    <p className="login-error">
+                        <FontAwesomeIcon icon={faTriangleExclamation} /> {loginError.message}
+                    </p> 
+                )
+            }
             <input type="submit" value="Login" />
         </form>
     )

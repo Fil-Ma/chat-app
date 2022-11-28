@@ -27,7 +27,6 @@ form.login > * {
 
 .login input[type="text"] {
     margin-block-start: 2rem;
-    margin-block-end: 4rem;
     padding: 0.5rem 1rem;
     outline-color: blue;
 }
@@ -38,12 +37,19 @@ form.login > * {
     color: #FFF;
     border: none;
     border-radius: 0.5rem;
+    margin-block-start: 3rem;
 }
 
 .login input[type="submit"]:hover,
 .login input[type="submit"]:focus {
     cursor: pointer;
 }
+
+.login-error {
+    font-size: 0.8rem;
+    color: red;
+    margin-block-start: 1rem;
+  }
 
 /* styling home page */
 .home-container header {

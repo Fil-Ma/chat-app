@@ -9,6 +9,8 @@ import ChatRoom from "../components/ChatRoom";
 import JoinChatRoomForm from "../components/JoinChatRoomForm";
 import NotFound from "../components/NotFound";
 
+import { checkUsernameTaken } from "../api/users";
+
 const socket = io('http://localhost:4000', { 
     autoConnect: false 
 });
@@ -24,7 +26,10 @@ export default function App() {
 
     // messages and users in the room
     const [roomMessages, setRoomMessages] = useState([]);
-    const [roomUsers, setRoomUsers] = useState([]); 
+    const [roomUsers, setRoomUsers] = useState([]);
+    
+    // errors
+    const [loginError, setLoginError] = useState(null);
 
     const navigate = useNavigate();
 
@@ -60,16 +65,32 @@ export default function App() {
     }, [socket, roomUsers]);
 
     // handle user login
-    function submitLogin(event) {
+    async function submitLogin(event) {
         event.preventDefault();
-        if (userName) {
-            setIsLoggedIn(true);
+        // check if userName is valid
+        if (typeof userName !== "string" || userName.length < 3 || userName.length > 12) {
+            setLoginError(new Error("Your username must be more than 3 and less than 12 characters long"));
+            setUserName("");
+            return;
         }
+        // check if userName already exists
+        try {
+            const result = await checkUsernameTaken(userName);
+        } catch(err) {
+            setLoginError(err);
+            setUserName("");
+            return;
+        }
+        // login
+        setIsLoggedIn(true);
+        setLoginError(null);
         navigate("/home");
+        // socket connection
         if (!socketIsConnected) {
             socket.connect();
             setSocketIsConnected(true);
         }
+        
     }
 
     // handle user logout
@@ -140,7 +161,9 @@ export default function App() {
                 path="/" 
                 element={
                     <Login 
+                        loginError={loginError}
                         handleSubmit={submitLogin}
+                        userName={userName}
                         setUserName={setUserName} />
                 } />
 

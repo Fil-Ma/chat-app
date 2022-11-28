@@ -1,4 +1,8 @@
 const express = require("express");
+const helmet = require("helmet");
+const morgan = require("morgan");
+const { param, validationResult } = require("express-validator");
+
 const PORT = 4000;
 const app = express();
 
@@ -10,6 +14,8 @@ const UserService = require("./server/users");
 const UserServiceInstance = new UserService();
 
 app.use(cors());
+app.use(helmet());
+app.use(morgan("dev"));
 
 const socketIO = require('socket.io')(http, {
     cors: {
@@ -88,7 +94,7 @@ socketIO.on('connection', (socket) => {
     //sends the message to all the users on the server
     socket.on('sendMessage', (message) => {
         
-        const user = UserServiceInstance.getUser(socket.id);
+        const user = UserServiceInstance.getUserById(socket.id);
         
         socketIO.to(user.room).emit(
             'message', 
@@ -120,6 +126,57 @@ socketIO.on('connection', (socket) => {
         }
     });
 });
+
+app.get(
+    '/api/:userName', 
+    [
+        param('userName', 'Username must be of min 3, max 12 characters')
+            .trim()
+            .escape()
+            .isString()
+            .isLength({ 
+                min: 3, 
+                max: 12
+            })
+            .matches(/^[a-z\d]+$/i)
+    ],
+    (req, res, next) => {
+        const { userName } = req.userName;
+
+        try {
+            const errors = validationResult(req).array();
+            if (errors.length > 0) {
+                throw new Error(errors[0].msg);
+            }
+
+            const user = UserServiceInstance.getUserByName(userName);
+            if (user) {
+                throw new Error("User already exists");
+            }
+
+            res.status(200).send(user);
+
+        } catch(err) {
+            console.log(err)
+            next(err);
+        }
+    }
+);
+
+app.use((err, req, res, next) => {
+    if (!err.message) {
+      return res.status(err.status).send( "An error occured" );
+    }
+
+    const { message } = err;
+    if (!err.status) {
+      return res.status(500).send({ message });
+    }
+
+    return res.status(err.status).send({ message });
+
+});
+
 
 http.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`)

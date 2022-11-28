@@ -46,8 +46,20 @@ module.exports = class UserService {
      * @param {String} id | user id
      * @returns {Object|null} the user in database
      */
-    getUser(id) {
+    getUserById(id) {
         const user = this.users.find((element) => element.id === id);
+        if (user) return user;
+        return null;
+    }
+
+    /**
+     * Retrieve user from "database"
+     * 
+     * @param {String} name | user name
+     * @returns {Object|null} the user in database
+     */
+     getUserByName(name) {
+        const user = this.users.find((element) => element.name === name);
         if (user) return user;
         return null;
     }
