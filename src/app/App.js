@@ -75,7 +75,7 @@ export default function App() {
         }
         // check if userName already exists
         try {
-            const result = await checkUsernameTaken(userName);
+            await checkUsernameTaken(userName);
         } catch(err) {
             setLoginError(err);
             setUserName("");

@@ -5,9 +5,12 @@ export async function checkUsernameTaken(userName) {
         const urlToFetch = "http://localhost:4000/api/" + userName;
 
         const response = await fetch(urlToFetch);
-        const data = await response.json();
+        
+        if (response.status !== 200) {
+            throw new Error("Whoops! Something went wrong, please try again")
+        }
 
-        return data;
+        return;
 
     } catch (err) {
         throw new Error(err);

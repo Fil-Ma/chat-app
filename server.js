@@ -141,7 +141,7 @@ app.get(
             .matches(/^[a-z\d]+$/i)
     ],
     (req, res, next) => {
-        const { userName } = req.userName;
+        const { userName } = req.params;
 
         try {
             const errors = validationResult(req).array();
@@ -154,10 +154,9 @@ app.get(
                 throw new Error("User already exists");
             }
 
-            res.status(200).send(user);
+            res.status(200).send();
 
         } catch(err) {
-            console.log(err)
             next(err);
         }
     }
