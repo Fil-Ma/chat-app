@@ -1,5 +1,6 @@
 "use strict";
 
+
 /**
  * Check if a user name is already taken.
  * 
