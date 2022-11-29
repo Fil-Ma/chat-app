@@ -1,21 +1,45 @@
 const express = require("express");
 const helmet = require("helmet");
 // const morgan = require("morgan");
+const cors = require("cors");
+const Joi = require("joi");
 const { param, validationResult } = require("express-validator");
 
-const PORT = 4000;
+/*
+    SETUP SERVER 
+*/
+
+const { escapeHtml } = require("./server/utils");
 const app = express();
 
-const cors = require("cors");
 const { io } = require("socket.io-client");
 const http = require("http").Server(app);
 
 const UserService = require("./server/users");
 const UserServiceInstance = new UserService();
 
+const PORT = 4000;
+
 app.use(cors());
 app.use(helmet());
 // app.use(morgan("dev"));
+
+/*
+    JOI CONFIGURATION FOR SANITIZATION
+*/
+
+const userSchema = Joi.object({
+    name: Joi.string().alphanum().min(3).max(12).required(),
+    room: Joi.string().min(4).max(4).required(),
+});
+
+const messageSchema = Joi.object({
+    message: Joi.string().min(1).required(),
+});
+
+/*
+    CONFIGURATION SOCKET SERVER
+*/
 
 const socketIO = require('socket.io')(http, {
     cors: {
@@ -26,6 +50,7 @@ const socketIO = require('socket.io')(http, {
 // handle socket.io operations
 socketIO.on('connection', (socket) => {
 
+    // handle socket connection
     socket.on('connect', () => {
         console.log(`${socket.id} user just connected!`);
     });
@@ -33,10 +58,20 @@ socketIO.on('connection', (socket) => {
     // handle user connection to room
     socket.on('join', (data, callback) => {
         
-        const { name, room } = data;
-        let user;
+        let user = undefined;
 
         try {
+            const { value, error } = userSchema.validate(data);
+            console.log("value", value)
+            console.log("err", error)
+            if (error) {
+                throw new Error(error);
+            }
+            
+            const { name, room } = value;
+            console.log("name", name)
+            console.log("room", room)
+
             user = UserServiceInstance.addUser({ 
                 id: socket.id, 
                 name, 
@@ -71,6 +106,7 @@ socketIO.on('connection', (socket) => {
         callback();
     });
 
+    // handle user leaving the room
     socket.on("leave", () => {
 
         const user = UserServiceInstance.removeUser(socket.id);
@@ -92,15 +128,22 @@ socketIO.on('connection', (socket) => {
     });
   
     //sends the message to all the users on the server
-    socket.on('sendMessage', (message) => {
+    socket.on('sendMessage', (messageText, callback) => {
+        
+        const { value, error } = messageSchema.validate({ message: messageText });
+        
+        if (error) {
+            callback(error);
+        }
         
         const user = UserServiceInstance.getUserById(socket.id);
-        
+        const safeMessage = escapeHtml(value.message);
+
         socketIO.to(user.room).emit(
             'message', 
             { 
                 user: user.name, 
-                text: message
+                text: safeMessage
             }
         );
         
@@ -111,8 +154,11 @@ socketIO.on('connection', (socket) => {
                 users: UserServiceInstance.getUsersInRoom(user.room)
             }
         )
+
+        callback();
     });
-  
+    
+    // handle socket disconnect
     socket.on('disconnect', () => {
         const user = UserServiceInstance.removeUser(socket.id);
         if (user) {
@@ -126,6 +172,10 @@ socketIO.on('connection', (socket) => {
         }
     });
 });
+
+/*
+    /api GET METHODS
+*/
 
 // api get request to check if username already exists
 app.get(
@@ -214,6 +264,9 @@ app.use((err, req, res, next) => {
 
 });
 
+/*
+    START SERVER 
+*/
 
 http.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`)
