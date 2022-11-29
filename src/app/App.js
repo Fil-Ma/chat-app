@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { io } from 'socket.io-client';
 
 import PrivateRoute from "../components/PrivateRoute";
 import Login from "../components/Login";
 import Home from "../components/Home";
-import ChatRoom from "../components/ChatRoom";
-import JoinChatRoomForm from "../components/JoinChatRoomForm";
-import NotFound from "../components/NotFound";
+import LoadingPage from "../components/LoadingPage";
+// lazy imports
+const ChatRoom = React.lazy(() => import("../components/ChatRoom"));
+const JoinChatRoomForm = React.lazy(() => import("../components/JoinChatRoomForm"));
+const NotFound = React.lazy(() => import("../components/NotFound"));
 
 import { checkUsernameTaken, checkRoomExists } from "../api/utils";
 
@@ -203,11 +205,13 @@ export default function App() {
                 path="/join_chatroom"
                 element={
                     <PrivateRoute isLoggedIn={isLoggedIn}>
-                        <JoinChatRoomForm
-                            setRoom={setRoom}
-                            room={room}
-                            joinRoomError={joinRoomError} 
-                            handleSubmit={handleEnterChatRoom} />
+                        <Suspense fallback={<LoadingPage />}>
+                            <JoinChatRoomForm
+                                setRoom={setRoom}
+                                room={room}
+                                joinRoomError={joinRoomError} 
+                                handleSubmit={handleEnterChatRoom} />
+                        </Suspense>
                     </PrivateRoute>
                 } />
 
@@ -215,19 +219,25 @@ export default function App() {
                 path="/chat/:room"
                 element={
                     <PrivateRoute isLoggedIn={isLoggedIn}>
-                        <ChatRoom
-                            roomMessages={roomMessages}
-                            users={roomUsers}
-                            handleLeave={handleClickLeaveRoom}
-                            handleSubmit={handleSendMessage}
-                            newMessage={newMessage}
-                            setNewMessage={setNewMessage} />
+                        <Suspense fallback={<LoadingPage />}>
+                            <ChatRoom
+                                roomMessages={roomMessages}
+                                users={roomUsers}
+                                handleLeave={handleClickLeaveRoom}
+                                handleSubmit={handleSendMessage}
+                                newMessage={newMessage}
+                                setNewMessage={setNewMessage} />
+                        </Suspense>
                     </PrivateRoute>
                 } />
             
             <Route 
                 path="*"
-                element={ <NotFound /> } />
+                element={ 
+                    <Suspense fallback={<LoadingPage />}>
+                        <NotFound />
+                    </Suspense> 
+                } />
             
         </Routes>
     )
