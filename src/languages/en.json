@@ -1,7 +1,8 @@
 {
     "login": {
         "label": "Enter your username",
-        "input": "Username"
+        "input": "Username",
+        "format-error": "Your username must be more than 3 and less than 12 characters long"
     },
     "home": {
         "select": "Select language:",
@@ -13,7 +14,18 @@
     "join-room": {
         "label": "Enter the code of the chatroom you want to join:",
         "input": "Room code",
-        "submit": "Join now"
+        "submit": "Join now",
+        "code-error": "Invalid room code"
+    },
+    "api": {
+        "check-username": "Whoops! Something went wrong, please try again",
+        "check-room-ifexists": "Room does not exist. Check the code and enter it again"
+    },
+    "chat": {
+        "tools": {
+            "room-info": "Room",
+            "leave-btn": "Leave"
+        }
     }
 }
 

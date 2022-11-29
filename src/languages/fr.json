@@ -1,0 +1,32 @@
+{
+    "login": {
+        "label": "Entrez votre nom d'utilisateur",
+        "input": "Username",
+        "format-error": "Votre nom d'utilisateur doit comporter plus de 3 et moins de 12 caractères."
+    },
+    "home": {
+        "select": "Sélectionner la langue:",
+        "welcome": "Bienvenue",
+        "entry-text": "! Préparez-vous à discuter avec de nouveaux et d'anciens amis",
+        "start-room-btn": "Démarrer une nouvelle salle de chat",
+        "join-room-btn": "Entrer dans une salle de discussion existante"
+    },
+    "join-room": {
+        "label": "Saisissez le code du salon de discussion que vous souhaitez rejoindre:",
+        "input": "Code de la salle",
+        "submit": "Adhérez maintenant",
+        "code-error": "Code de chambre non valide"
+    },
+    "api": {
+        "check-username": "Oups ! Quelque chose s'est mal passé, veuillez réessayer",
+        "check-room-ifexists": "La chambre n'existe pas. Vérifiez le code et entrez-le à nouveau"
+    },
+    "chat": {
+        "tools": {
+            "room-info": "Chambre",
+            "leave-btn": "Quitter"
+        }
+    }
+}
+
+

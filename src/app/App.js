@@ -11,6 +11,7 @@ const ChatRoom = React.lazy(() => import("../components/ChatRoom"));
 const JoinChatRoomForm = React.lazy(() => import("../components/JoinChatRoomForm"));
 const NotFound = React.lazy(() => import("../components/NotFound"));
 
+import { dictionaryList } from "../languages";
 import { checkUsernameTaken, checkRoomExists } from "../api/utils";
 import { LanguageContext } from "./contexts/LanguageContext";
 
@@ -35,9 +36,11 @@ export default function App() {
     const [loginError, setLoginError] = useState(null);
     const [joinRoomError, setJoinRoomError] = useState(null);
 
+    // language
     const [language, setLanguage] = useState(
         localStorage.getItem("language") || "en"
     );
+
     const navigate = useNavigate();
 
     // listen to event of type message to refresh messages list
@@ -72,16 +75,16 @@ export default function App() {
     }, [socket, roomUsers]);
 
     // handle user login
-    async function submitLogin(event) {
+    function submitLogin(event) {
         event.preventDefault();
         try {
             // check if userName is valid
             if (typeof userName !== "string" || userName.length < 3 || userName.length > 12) {
-                throw new Error("Your username must be more than 3 and less than 12 characters long");
+                throw new Error(dictionaryList[language].login["format-error"]);
             }
 
             // check if userName already exists
-            await checkUsernameTaken(userName);
+            checkUsernameTaken(userName, language);
         } catch(err) {
             setLoginError(err);
             setUserName("");
@@ -120,14 +123,14 @@ export default function App() {
     };
 
     // handle user joining room
-    async function handleEnterChatRoom(event) {
+    function handleEnterChatRoom(event) {
         event.preventDefault();
         try {
             const roomInt = parseInt(room);
             if (typeof roomInt !== "number" || roomInt < 1000 || roomInt > 10000) {
-                throw new Error("Invalid room code");
+                throw new Error(dictionaryList[language]["join-room"]["code-error"]);
             }
-            await checkRoomExists(room);
+            checkRoomExists(room, language);
 
         } catch(err) {
             setJoinRoomError(err);
@@ -230,15 +233,17 @@ export default function App() {
                 path="/chat/:room"
                 element={
                     <PrivateRoute isLoggedIn={isLoggedIn}>
-                        <Suspense fallback={<LoadingPage />}>
-                            <ChatRoom
-                                roomMessages={roomMessages}
-                                users={roomUsers}
-                                handleLeave={handleClickLeaveRoom}
-                                handleSubmit={handleSendMessage}
-                                newMessage={newMessage}
-                                setNewMessage={setNewMessage} />
-                        </Suspense>
+                        <LanguageContext.Provider value={language}>
+                            <Suspense fallback={<LoadingPage />}>
+                                <ChatRoom
+                                    roomMessages={roomMessages}
+                                    users={roomUsers}
+                                    handleLeave={handleClickLeaveRoom}
+                                    handleSubmit={handleSendMessage}
+                                    newMessage={newMessage}
+                                    setNewMessage={setNewMessage} />
+                            </Suspense>
+                        </LanguageContext.Provider>
                     </PrivateRoute>
                 } />
             

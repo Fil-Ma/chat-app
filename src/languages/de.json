@@ -1,0 +1,32 @@
+{
+    "login": {
+        "label": "Geben Sie Ihren Benutzernamen ein",
+        "input": "Username",
+        "format-error": "Ihr Benutzername muss mehr als 3 und weniger als 12 Zeichen lang sein"
+    },
+    "home": {
+        "select": "Sprache auswählen:",
+        "welcome": "Willkommen",
+        "entry-text": "! Machen Sie sich bereit, mit neuen und alten Freunden zu chatten",
+        "start-room-btn": "Neuen Chatraum starten",
+        "join-room-btn": "Vorhandenen Chatraum betreten"
+    },
+    "join-room": {
+        "label": "Geben Sie den Code des Chatraums ein, dem Sie beitreten möchten:",
+        "input": "Zimmer-Code",
+        "submit": "Jetzt beitreten",
+        "code-error": "Ungültiger Zimmercode"
+    },
+    "api": {
+        "check-username": "Huch! Etwas ist schief gelaufen, bitte versuchen Sie es erneut",
+        "check-room-ifexists": "Das Zimmer ist nicht vorhanden. Prüfen Sie den Code und geben Sie ihn erneut ein"
+    },
+    "chat": {
+        "tools": {
+            "room-info": "Zimmer",
+            "leave-btn": "Verlassen"
+        }
+    }
+}
+
+

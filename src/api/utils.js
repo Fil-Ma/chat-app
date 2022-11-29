@@ -1,5 +1,5 @@
 "use strict";
-
+import { dictionaryList } from "../languages";
 
 /**
  * Check if a user name is already taken.
@@ -7,13 +7,13 @@
  * @param {String} userName | user name
  * @returns {void|Error} the function does not return nothing
  */
-export async function checkUsernameTaken(userName) {
+export async function checkUsernameTaken(userName, language = "en") {
     try {
         const urlToFetch = "http://localhost:4000/api/users/" + userName;
         const response = await fetch(urlToFetch);
         
         if (response.status !== 200) {
-            throw new Error("Whoops! Something went wrong, please try again")
+            throw new Error(dictionaryList[language].api["check-username"])
         }
 
         return;
@@ -29,13 +29,13 @@ export async function checkUsernameTaken(userName) {
  * @param {String} room 
  * @returns {void|Error} the function does not return nothing
  */
-export async function checkRoomExists(room) {
+export async function checkRoomExists(room, language = "en") {
     try {
         const urlToFetch = "http://localhost:4000/api/rooms/" + room;
         const response = await fetch(urlToFetch);
 
         if (response.status !== 200) {
-            throw new Error("Room does not exist. Check the code and enter it again");
+            throw new Error(dictionaryList[language].api["check-room-ifexists"]);
         }
 
         return;

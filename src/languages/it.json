@@ -1,7 +1,8 @@
 {
     "login": {
         "label": "Inserisci il tuo nome utente",
-        "input": "Username"
+        "input": "Username",
+        "format-error": "Il nome utente deve avere tra 3 e 12 caratteri in lunghezza"
     },
     "home": {
         "select": "Seleziona la lingua:",
@@ -13,6 +14,17 @@
     "join-room": {
         "label": "Inserisci il codice della stanza in cui vuoi entrare:",
         "input": "Codice stanza",
-        "submit": "Entra adesso"
+        "submit": "Entra adesso",
+        "code-error": "Codice stanza non valido"
+    },
+    "api": {
+        "check-username": "Whoops! Something went wrong, please try again",
+        "check-room-ifexists": "Room does not exist. Check the code and enter it again"
+    },
+    "chat": {
+        "tools": {
+            "room-info": "Stanza",
+            "leave-btn": "Esci"
+        }
     }
 }
