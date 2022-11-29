@@ -1,0 +1,20 @@
+{
+    "login": {
+        "label": "Enter your username",
+        "input": "Username"
+    },
+    "home": {
+        "select": "Select language:",
+        "welcome": "Welcome",
+        "entry-text": "! Get ready to chat with new and old friends",
+        "start-room-btn": "Start new chatroom",
+        "join-room-btn": "Enter existing chatroom"
+    },
+    "join-room": {
+        "label": "Enter the code of the chatroom you want to join:",
+        "input": "Room code",
+        "submit": "Join now"
+    }
+}
+
+

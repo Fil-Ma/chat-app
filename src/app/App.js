@@ -12,6 +12,7 @@ const JoinChatRoomForm = React.lazy(() => import("../components/JoinChatRoomForm
 const NotFound = React.lazy(() => import("../components/NotFound"));
 
 import { checkUsernameTaken, checkRoomExists } from "../api/utils";
+import { LanguageContext } from "./contexts/LanguageContext";
 
 const socket = io('http://localhost:4000', { 
     autoConnect: false 
@@ -34,6 +35,9 @@ export default function App() {
     const [loginError, setLoginError] = useState(null);
     const [joinRoomError, setJoinRoomError] = useState(null);
 
+    const [language, setLanguage] = useState(
+        localStorage.getItem("language") || "en"
+    );
     const navigate = useNavigate();
 
     // listen to event of type message to refresh messages list
@@ -179,14 +183,17 @@ export default function App() {
 
     return (
         <Routes>
+
             <Route 
                 path="/" 
                 element={
-                    <Login 
-                        loginError={loginError}
-                        handleSubmit={submitLogin}
-                        userName={userName}
-                        setUserName={setUserName} />
+                    <LanguageContext.Provider value={language}>
+                        <Login 
+                            loginError={loginError}
+                            handleSubmit={submitLogin}
+                            userName={userName}
+                            setUserName={setUserName} />
+                    </LanguageContext.Provider>
                 } />
 
             <Route 
@@ -195,6 +202,8 @@ export default function App() {
                     <PrivateRoute isLoggedIn={isLoggedIn}>
                         <Home 
                             userName={userName} 
+                            language={language}
+                            setLanguage={setLanguage}
                             handleLogout={logout}
                             handleClickCreate={handleCreateChatRoom}
                             handleClickJoin={handleClickJoinChatRoom} />
@@ -205,13 +214,15 @@ export default function App() {
                 path="/join_chatroom"
                 element={
                     <PrivateRoute isLoggedIn={isLoggedIn}>
-                        <Suspense fallback={<LoadingPage />}>
-                            <JoinChatRoomForm
-                                setRoom={setRoom}
-                                room={room}
-                                joinRoomError={joinRoomError} 
-                                handleSubmit={handleEnterChatRoom} />
-                        </Suspense>
+                        <LanguageContext.Provider value={language}>
+                            <Suspense fallback={<LoadingPage />}>
+                                <JoinChatRoomForm
+                                    setRoom={setRoom}
+                                    room={room}
+                                    joinRoomError={joinRoomError} 
+                                    handleSubmit={handleEnterChatRoom} />
+                            </Suspense>
+                        </LanguageContext.Provider>
                     </PrivateRoute>
                 } />
 
@@ -238,7 +249,7 @@ export default function App() {
                         <NotFound />
                     </Suspense> 
                 } />
-            
+
         </Routes>
     )
 }

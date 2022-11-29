@@ -1,0 +1,18 @@
+{
+    "login": {
+        "label": "Inserisci il tuo nome utente",
+        "input": "Username"
+    },
+    "home": {
+        "select": "Seleziona la lingua:",
+        "welcome": "Benvenuto",
+        "entry-text": "! Divertiti a chattare con amici nuovi e vecchi",
+        "start-room-btn": "Apri una nuova stanza",
+        "join-room-btn": "Entra in una stanza già esistente"
+    },
+    "join-room": {
+        "label": "Inserisci il codice della stanza in cui vuoi entrare:",
+        "input": "Codice stanza",
+        "submit": "Entra adesso"
+    }
+}

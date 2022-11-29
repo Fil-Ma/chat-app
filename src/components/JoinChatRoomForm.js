@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
+import { LanguageContext } from "../app/contexts/LanguageContext";
+import { dictionaryList } from "../languages";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 
@@ -8,14 +11,15 @@ export default function JoinChatRoomForm({
     setRoom,
     joinRoomError
 }) {
+    const language = useContext(LanguageContext);
 
     return (
         <form className="join-chat" onSubmit={handleSubmit}>
-            <label htmlFor="room-id">Enter the code of the chatroom you want to join:</label>
+            <label htmlFor="room-id">{dictionaryList[language]["join-room"].label}</label>
             <input 
                 type="text"
                 name="room-id"
-                placeholder="Room code"
+                placeholder={dictionaryList[language]["join-room"].input}
                 value={room}
                 onChange={(e) => setRoom(e.target.value)}
                 required
@@ -27,7 +31,7 @@ export default function JoinChatRoomForm({
                     </p> 
                 )
             }
-            <input type="submit" value="Join now" />
+            <input type="submit" value={dictionaryList[language]["join-room"].submit} />
         </form>
     )
 }
