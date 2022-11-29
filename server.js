@@ -62,15 +62,11 @@ socketIO.on('connection', (socket) => {
 
         try {
             const { value, error } = userSchema.validate(data);
-            console.log("value", value)
-            console.log("err", error)
             if (error) {
                 throw new Error(error);
             }
             
             const { name, room } = value;
-            console.log("name", name)
-            console.log("room", room)
 
             user = UserServiceInstance.addUser({ 
                 id: socket.id, 
@@ -162,11 +158,11 @@ socketIO.on('connection', (socket) => {
     socket.on('disconnect', () => {
         const user = UserServiceInstance.removeUser(socket.id);
         if (user) {
-            io.to(user.room).emit(
+            socketIO.to(user.room).emit(
                 'message',
                 {
                     user: 'admin',
-                    text: `${user.name} left` 
+                    text: `${user.name} disconnected` 
                 }
             )
         }
