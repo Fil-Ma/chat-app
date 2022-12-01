@@ -1,9 +1,43 @@
-/* general */
+/* variables */
 :root {
     --light-blue: #d4ebf2;
     --dark-blue: #1c4d5d;
     --error-red: #ff0033;
     --red-extra: #BF360C;
+}
+
+/* set font sizes */
+html {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+}
+
+h1 {
+    font-size: 2.2rem;
+}
+
+h2 {
+    font-size: 1.7rem;
+}
+
+h3 {
+    font-size: 1.4rem;
+}
+
+h4 {
+    font-size: 1.2rem;
+}
+
+h5 {
+    font-size: 1rem;
+}
+
+h6 {
+    font-size: 0.8rem;
+}
+
+p {
+    font-size: 1.1rem;
 }
 
 button {
@@ -19,109 +53,6 @@ button:focus {
 
 .dark-blue-background {
     background-color: var(--dark-blue);
-}
-
-/* styling chat room */
-div.chat-container {
-    inline-size: 60vw;
-    block-size: 80vh;
-    margin: 9vh auto;
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    display: flex;
-}
-
-div.chat-body {
-    inline-size: 75%;
-    display: flex;
-    flex-direction: column;
-}
-
-.chat-container aside {
-    inline-size: 25%;
-    border-inline-start: 1px solid rgba(0, 0, 0, 0.3);
-}
-
-div.chat-body,
-.chat-container aside {
-    padding: 2rem;
-}
-
-/* styling chat body */
-
-div.messages-container {
-    block-size: 90%;
-    overflow-y: scroll;
-    margin-block-end: 0.5rem;
-}
-
-div.system-msg {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-div.user-msg {
-    background-color: var(--light-blue);
-}
-
-.message {
-    margin-block: 1rem;
-    padding: 0.5rem;
-    max-inline-size: 95%;
-}
-
-div.message:first-child {
-    margin-block-start: 0;
-}
-
-.text p {
-    padding-block-end: 0.5rem;
-}
-
-.sender p {
-    font-size: 0.8rem;
-}
-
-.system-msg .text p {
-    padding: 0;
-    font-size: 1rem;
-}
-
-.system-msg .sender {
-    display: none;
-}
-
-/* styling chat message editor */
-
-form.message-editor {
-    block-size: 10%;
-}
-
-.message-editor input[type="text"] {
-    block-size: 50%;
-    inline-size: 80%;
-    padding: 0.5rem 1rem;
-}
-
-.message-editor input[type="submit"] {
-    inline-size: calc(20% - 2rem - 4px);
-    block-size: calc(50% + 1rem + 4px);
-    padding: 0.5rem 0;
-    align-items: center;
-    background-color: var(--dark-blue);
-    color: #FFF;
-    border: none;
-}
-
-/* styling chat tools aside */
-button.leave-btn {
-    padding: 0.4rem 0.8rem;
-    background-color: var(--red-extra);
-}
-
-div.room-general-info {
-    margin-block-end: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 @media only screen and (max-width: 550px) {

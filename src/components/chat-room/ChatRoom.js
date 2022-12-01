@@ -1,9 +1,10 @@
+import "./chat-room.css";
 import React from "react";
 import { useParams } from "react-router-dom";
 
-import ChatBody from "./ChatBody";
-import ChatTools from "./ChatTools";
-import MessageEditor from "./MessageEditor";
+import ChatBody from "./chat-body/ChatBody";
+import ChatTools from "./chat-tools/ChatTools";
+import MessageEditor from "./message-editor/MessageEditor";
 
 export default function ChatRoom({
     roomMessages,

@@ -1,6 +1,7 @@
+import "./chat-tools.css";
 import React, { useContext } from "react";
-import { LanguageContext } from "../app/contexts/LanguageContext";
-import { dictionaryList } from "../languages";
+import { LanguageContext } from "../../../app/contexts/LanguageContext";
+import { dictionaryList } from "../../../languages";
 
 export default function ChatTools({ 
     users, 

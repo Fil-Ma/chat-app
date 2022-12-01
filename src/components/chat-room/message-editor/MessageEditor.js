@@ -1,3 +1,4 @@
+import "./message-editor.css";
 import React from "react";
 
 export default function MessageEditor({ 

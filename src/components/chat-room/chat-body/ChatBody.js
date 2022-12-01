@@ -1,3 +1,4 @@
+import "./chat-body.css";
 import React, { useEffect } from "react";
 
 export default function ChatBody({ roomMessages }) {

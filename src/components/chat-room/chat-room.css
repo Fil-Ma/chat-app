@@ -1,0 +1,24 @@
+/* styling chat room */
+div.chat-container {
+    inline-size: 60vw;
+    block-size: 80vh;
+    margin: 9vh auto;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    display: flex;
+}
+
+div.chat-body {
+    inline-size: 75%;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-container aside {
+    inline-size: 25%;
+    border-inline-start: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+div.chat-body,
+.chat-container aside {
+    padding: 2rem;
+}
