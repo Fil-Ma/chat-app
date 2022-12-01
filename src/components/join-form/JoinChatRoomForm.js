@@ -1,6 +1,7 @@
+import "./join-form.css";
 import React, { useContext } from "react";
-import { LanguageContext } from "../app/contexts/LanguageContext";
-import { dictionaryList } from "../languages";
+import { LanguageContext } from "../../app/contexts/LanguageContext";
+import { dictionaryList } from "../../languages";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";

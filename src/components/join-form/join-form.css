@@ -1,0 +1,50 @@
+/* styling join chatroom form page */
+form.join-chat {
+    margin: 5% auto;
+    inline-size: 40%;
+    block-size: 50vh;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    padding: 5rem 5rem 3rem 5rem;
+    background-color: var(--light-blue);
+}
+
+form.join-chat > * {
+    display: block;
+    font-size: 1.1rem;
+}
+
+.join-chat input[type="text"] {
+    margin-block-start: 2rem;
+    padding: 0.5rem 1rem;
+    outline-color: var(--dark-blue);
+}
+
+.join-chat input[type="submit"] {
+    padding: 1rem 2rem;
+    background-color: var(--dark-blue);
+    color: #FFF;
+    border: none;
+    border-radius: 0.5rem;
+    margin-block-start: 3rem;
+}
+
+.join-chat input[type="submit"]:hover,
+.join-chat input[type="submit"]:focus {
+    cursor: pointer;
+}
+
+.join-room-error {
+    font-size: 0.8rem;
+    color: var(--error-red);
+    margin-block-start: 1rem;
+}
+
+@media only screen and (max-width: 500px) {
+    form.join-chat {
+        padding: 5rem 2rem 3rem 2rem;
+        inline-size: 70%;
+        margin: 8% auto;
+    }
+}

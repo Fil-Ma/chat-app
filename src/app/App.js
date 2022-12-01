@@ -8,7 +8,7 @@ import Home from "../components/home/Home";
 import LoadingPage from "../components/LoadingPage";
 // lazy imports
 const ChatRoom = React.lazy(() => import("../components/ChatRoom"));
-const JoinChatRoomForm = React.lazy(() => import("../components/JoinChatRoomForm"));
+const JoinChatRoomForm = React.lazy(() => import("../components/join-form/JoinChatRoomForm"));
 const NotFound = React.lazy(() => import("../components/NotFound"));
 
 import { dictionaryList } from "../languages";
