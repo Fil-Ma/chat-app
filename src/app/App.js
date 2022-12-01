@@ -5,11 +5,11 @@ import { io } from 'socket.io-client';
 import PrivateRoute from "../components/PrivateRoute";
 import Login from "../components/login/Login";
 import Home from "../components/home/Home";
-import LoadingPage from "../components/LoadingPage";
+import LoadingPage from "../components/loading-screen/LoadingPage";
 // lazy imports
 const ChatRoom = React.lazy(() => import("../components/chat-room/ChatRoom"));
 const JoinChatRoomForm = React.lazy(() => import("../components/join-form/JoinChatRoomForm"));
-const NotFound = React.lazy(() => import("../components/NotFound"));
+const NotFound = React.lazy(() => import("../components/not-found-page/NotFound"));
 
 import { dictionaryList } from "../languages";
 import { checkUsernameTaken, checkRoomExists } from "../api/utils";
@@ -246,7 +246,7 @@ export default function App() {
                         </LanguageContext.Provider>
                     </PrivateRoute>
                 } />
-            
+        
             <Route 
                 path="*"
                 element={ 
