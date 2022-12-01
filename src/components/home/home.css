@@ -1,6 +1,6 @@
 /* styling home page */
 div.home-container {
-    padding: 2% 10%;
+    padding: 2rem 10%;
 }
 
 /* styling home page header */
@@ -9,6 +9,10 @@ div.home-container {
     justify-content: space-between;
     align-items: flex-start;
     margin-block-end: 2rem;
+}
+
+.language-select-container {
+    padding-inline-end: 2rem;
 }
 
 .language-select-container label {
@@ -64,7 +68,7 @@ div.home-container {
 div.utilities > button {
     background-color: var(--light-blue);
     block-size: 40%;
-    inline-size: 40%;
+    inline-size: 60%;
     border-radius: 1rem;
     font-size: 1.3rem;
 }
@@ -74,4 +78,63 @@ div.utilities > button:focus {
     cursor: pointer;
     box-shadow: 3px 3px var(--dark-blue);
     transform: translate(-3px, -3px);
+}
+
+@media only screen and (max-width: 1250px) {
+    .home-container main {
+        gap: 10vh;
+    }
+
+    div.home-container {
+        padding: 2rem 5%;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .home-container main {
+        gap: 0;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .home-container main {
+        flex-direction: column;
+    }
+
+    .home-container div.welcome,
+    .home-container div.utilities {
+        block-size: 30vh;
+        inline-size: 90%;
+    }
+
+    .home-container div.welcome {
+        text-align: center;
+    }
+
+    .home-container div.utilities {
+        flex-direction: row;
+    }
+    
+    div.utilities > button {
+        block-size: 60%;
+        inline-size: 40%;
+    }
+}
+
+@media only screen and (max-width: 410px) {
+    .language-select-container label {
+        margin-block-end: 0.5rem;
+        display: block;
+    }
+
+    div.utilities > button {
+        font-size: 1.1rem;
+    }
+}
+
+@media only screen and (max-width: 330px) {
+    div.utilities > button {
+        block-size: 60%;
+        inline-size: 45%;
+    }
 }
