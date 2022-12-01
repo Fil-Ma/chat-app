@@ -1,0 +1,35 @@
+/* styling home page */
+.home-container header {
+    block-size: 5rem;
+    padding: 1% 5%;
+}
+
+.home-container header button {
+    float: right;
+    background-color: lightcoral;
+
+}
+
+.home-container main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20vh;
+}
+
+.home-container div.welcome,
+.home-container div.utilities {
+    block-size: 50vh;
+    inline-size: 50vh;
+}
+
+div.utilities > button {
+    margin-block-end: 2rem;
+    background-color: blue;
+    color: #FFF;
+}
+
+div.utilities > button:hover,
+div.utilities > button:focus {
+    cursor: pointer;
+}

@@ -4,7 +4,7 @@ import { io } from 'socket.io-client';
 
 import PrivateRoute from "../components/PrivateRoute";
 import Login from "../components/login/Login";
-import Home from "../components/Home";
+import Home from "../components/home/Home";
 import LoadingPage from "../components/LoadingPage";
 // lazy imports
 const ChatRoom = React.lazy(() => import("../components/ChatRoom"));
