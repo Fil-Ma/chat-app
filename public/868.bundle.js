@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkchat_app=self.webpackChunkchat_app||[]).push([[868],{868:(e,t,a)=>{a.r(t),a.d(t,{default:()=>u});var n=a(294);function u(){return n.createElement("div",null,n.createElement("h1",null,"Page not found"))}}}]);
