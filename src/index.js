@@ -8,9 +8,7 @@ import App from "./app/App";
 const rootElement = createRoot(document.getElementById("root"));
 
 rootElement.render(
-    <StrictMode>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </StrictMode>
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>
 )
