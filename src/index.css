@@ -1,4 +1,9 @@
 /* general */
+:root {
+    --light-blue: #d4ebf2;
+    --dark-blue: #1c4d5d;
+}
+
 button {
     padding: 1rem 2rem;
     border: none;
@@ -10,82 +15,10 @@ button:focus {
     cursor: pointer;
 }
 
-/* styling login page */
-form.login {
-    margin: 5% auto;
-    inline-size: 60%;
-    block-size: 70vh;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 3rem 5rem;
-    background-color: lightblue;
+.dark-blue-background {
+    background-color: var(--dark-blue);
 }
 
-form.login > * {
-    display: block;
-    font-size: 1.1rem;
-}
-
-.login input[type="text"] {
-    margin-block-start: 2rem;
-    padding: 0.5rem 1rem;
-    outline-color: blue;
-}
-
-.login input[type="submit"] {
-    padding: 1rem 2rem;
-    background-color: blue;
-    color: #FFF;
-    border: none;
-    border-radius: 0.5rem;
-    margin-block-start: 3rem;
-}
-
-.login input[type="submit"]:hover,
-.login input[type="submit"]:focus {
-    cursor: pointer;
-}
-
-.login-error {
-    font-size: 0.8rem;
-    color: red;
-    margin-block-start: 1rem;
-  }
-
-/* styling home page */
-.home-container header {
-    block-size: 5rem;
-    padding: 1% 5%;
-}
-
-.home-container header button {
-    float: right;
-    background-color: lightcoral;
-
-}
-
-.home-container main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20vh;
-}
-
-.home-container div.welcome,
-.home-container div.utilities {
-    block-size: 50vh;
-    inline-size: 50vh;
-}
-
-div.utilities > button {
-    margin-block-end: 2rem;
-    background-color: blue;
-    color: #FFF;
-}
-
-div.utilities > button:hover,
-div.utilities > button:focus {
-    cursor: pointer;
-}
 
 /* styling join chatroom form page */
 form.join-chat {
@@ -230,3 +163,15 @@ div.room-general-info {
     justify-content: space-between;
     align-items: center;
 }
+
+@media only screen and (max-width: 550px) {
+    html {
+      font-size: 14px;
+    }
+  }
+  
+  @media only screen and (max-width: 300px) {
+    html {
+      font-size: 12px;
+    }
+  }
