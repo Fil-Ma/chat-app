@@ -1,0 +1,109 @@
+/* styling login page */
+main.login {
+    margin: 2% auto;
+    inline-size: 70%;
+    block-size: 75vh;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    padding: 3rem 5rem;
+    background-color: var(--light-blue);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+form.login {
+    padding: 2rem 5rem;
+}
+
+form.login > * {
+    display: block;
+    font-size: 1.1rem;
+}
+
+.login input[type="text"] {
+    margin-block-start: 2rem;
+    padding: 0.5rem 1rem;
+    outline-color: var(--dark-blue);
+}
+
+.login input[type="submit"] {
+    padding: 1rem 2rem;
+    color: #FFF;
+    background-color: var(--dark-blue);
+    border: none;
+    border-radius: 0.5rem;
+    margin-block-start: 3rem;
+}
+
+.login input[type="submit"]:hover,
+.login input[type="submit"]:focus {
+    cursor: pointer;
+}
+
+.login-error {
+    font-size: 0.8rem;
+    color: red;
+    margin-block-start: 1rem;
+}
+
+div.logo-container {
+    max-inline-size: 50%;
+    text-align: center;
+}
+
+div.logo-image-container {
+    inline-size: 60%;
+    margin: 0 auto 2rem auto;
+}
+
+.logo-image-container img {
+    inline-size: 100%;
+}
+
+ @media only screen and (max-width: 1000px) {
+    main.login {
+        margin: 5% auto;
+        inline-size: 80%;
+    }
+
+    div.logo-image-container {
+        inline-size: 70%;
+    }
+} 
+
+@media only screen and (max-width: 800px) {
+    form.login {
+        padding: 1rem 2rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    main.login {
+        padding: 1rem 2rem;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    main.login {
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+    }
+
+    .logo-container {
+        margin-block: 3rem;
+    }
+
+    div.logo-image-container {
+        inline-size: 20%;
+        display: inline-block;
+        margin: 0 1rem 0 0;
+    }
+
+    .logo-container h2 {
+        display: inline-block;
+        transform: translateY(-50%);
+    }
+}

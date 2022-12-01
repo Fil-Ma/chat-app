@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { io } from 'socket.io-client';
 
 import PrivateRoute from "../components/PrivateRoute";
-import Login from "../components/Login";
+import Login from "../components/login/Login";
 import Home from "../components/Home";
 import LoadingPage from "../components/LoadingPage";
 // lazy imports
