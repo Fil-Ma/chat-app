@@ -10,4 +10,5 @@
 *.env
 
 # build
+/public/build
 bundle.js*
