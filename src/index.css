@@ -2,6 +2,8 @@
 :root {
     --light-blue: #d4ebf2;
     --dark-blue: #1c4d5d;
+    --error-red: #ff0033;
+    --red-extra: #BF360C;
 }
 
 button {
@@ -27,7 +29,7 @@ form.join-chat {
     block-size: 70vh;
     border: 1px solid rgba(0, 0, 0, 0.1);
     padding: 3rem 5rem;
-    background-color: lightblue;
+    background-color: var(--light-blue);
 }
 
 form.join-chat > * {
@@ -38,12 +40,12 @@ form.join-chat > * {
 .join-chat input[type="text"] {
     margin-block-start: 2rem;
     padding: 0.5rem 1rem;
-    outline-color: blue;
+    outline-color: var(--dark-blue);
 }
 
 .join-chat input[type="submit"] {
     padding: 1rem 2rem;
-    background-color: blue;
+    background-color: var(--dark-blue);
     color: #FFF;
     border: none;
     border-radius: 0.5rem;
@@ -57,7 +59,7 @@ form.join-chat > * {
 
 .join-room-error {
     font-size: 0.8rem;
-    color: red;
+    color: var(--error-red);
     margin-block-start: 1rem;
 }
 
@@ -99,7 +101,7 @@ div.system-msg {
 }
 
 div.user-msg {
-    background-color: lightblue;
+    background-color: var(--light-blue);
 }
 
 .message {
@@ -146,7 +148,7 @@ form.message-editor {
     block-size: calc(50% + 1rem + 4px);
     padding: 0.5rem 0;
     align-items: center;
-    background-color: blue;
+    background-color: var(--dark-blue);
     color: #FFF;
     border: none;
 }
@@ -154,7 +156,7 @@ form.message-editor {
 /* styling chat tools aside */
 button.leave-btn {
     padding: 0.4rem 0.8rem;
-    background-color: lightcoral;
+    background-color: var(--red-extra);
 }
 
 div.room-general-info {

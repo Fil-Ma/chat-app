@@ -45,7 +45,7 @@ form.login > * {
 
 .login-error {
     font-size: 0.8rem;
-    color: red;
+    color: var(--error-red);
     margin-block-start: 1rem;
 }
 
@@ -94,6 +94,7 @@ div.logo-image-container {
 
     .logo-container {
         margin-block: 3rem;
+        position: relative;
     }
 
     div.logo-image-container {
@@ -104,6 +105,8 @@ div.logo-image-container {
 
     .logo-container h2 {
         display: inline-block;
+        position: absolute;
+        top: 50%;
         transform: translateY(-50%);
     }
 }

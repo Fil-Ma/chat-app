@@ -24,21 +24,23 @@ export default function Home({
     return (
         <div className="home-container">
             <header>
-                <label htmlFor="language-selection">{dictionaryList[language].home["select"]}</label>
-                <select 
-                    name="language-selection" 
-                    value={language}
-                    onChange={handleLanguageSelection}>
-                    {
-                        Object.keys(languageOptions).map((languageKey, index) => {
-                            return (
-                                <option value={languageKey} key={index}>
-                                    {languageOptions[languageKey]}
-                                </option>
-                            )
-                        })
-                    }
-                </select>
+                <div className="language-select-container">
+                    <label htmlFor="language-selection">{dictionaryList[language].home["select"]}</label>
+                    <select 
+                        name="language-selection" 
+                        value={language}
+                        onChange={handleLanguageSelection}>
+                        {
+                            Object.keys(languageOptions).map((languageKey, index) => {
+                                return (
+                                    <option value={languageKey} key={index}>
+                                        {languageOptions[languageKey]}
+                                    </option>
+                                )
+                            })
+                        }
+                    </select>
+                </div>
                 <button onClick={handleLogout}>Logout</button>
             </header>
             <main>

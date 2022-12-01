@@ -1,15 +1,36 @@
 /* styling home page */
+div.home-container {
+    padding: 2% 10%;
+}
+
+/* styling home page header */
 .home-container header {
-    block-size: 5rem;
-    padding: 1% 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-block-end: 2rem;
+}
+
+.language-select-container label {
+    margin-inline-end: 0.5rem;
+}
+
+.language-select-container select {
+    padding: 0.2rem 0.4rem;
 }
 
 .home-container header button {
-    float: right;
-    background-color: lightcoral;
-
+    background-color: var(--red-extra);
+    color: #FFF;
 }
 
+.home-container header button:hover,
+.home-container header button:focus {
+    opacity: 0.8;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+/* styling home page main*/
 .home-container main {
     display: flex;
     justify-content: center;
@@ -17,19 +38,40 @@
     gap: 20vh;
 }
 
+.home-container div.welcome {
+    position: relative;
+}
+
+.welcome h2 {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 .home-container div.welcome,
 .home-container div.utilities {
-    block-size: 50vh;
-    inline-size: 50vh;
+    block-size: 70vh;
+    inline-size: 50%;
+}
+
+.home-container div.utilities {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 
 div.utilities > button {
-    margin-block-end: 2rem;
-    background-color: blue;
-    color: #FFF;
+    background-color: var(--light-blue);
+    block-size: 40%;
+    inline-size: 40%;
+    border-radius: 1rem;
+    font-size: 1.3rem;
 }
 
 div.utilities > button:hover,
 div.utilities > button:focus {
     cursor: pointer;
+    box-shadow: 3px 3px var(--dark-blue);
+    transform: translate(-3px, -3px);
 }
