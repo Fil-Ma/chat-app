@@ -44,12 +44,26 @@ div.home-container {
 
 .home-container div.welcome {
     position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-.welcome h2 {
+.welcome .text-container {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    inline-size: 50%;
+    block-size: 50%;
+}
+
+.text-container h2 {
+    padding: 1rem 0 1rem 0.5rem;
+}
+
+.text-container h4 {
+    margin-block-start: 1rem;
 }
 
 .home-container div.welcome,
@@ -78,6 +92,23 @@ div.utilities > button:focus {
     cursor: pointer;
     box-shadow: 3px 3px var(--dark-blue);
     transform: translate(-3px, -3px);
+}
+
+@media only screen and (min-width: 1700px) {
+
+    .welcome .text-container {
+        inline-size: 30%;
+    }
+}
+
+@media only screen and (min-width: 1400px) and (max-width: 1700px) {
+    .home-container div.welcome {
+        background-size: contain;
+    }
+
+    .welcome .text-container {
+        inline-size: 40%;
+    }
 }
 
 @media only screen and (max-width: 1250px) {
@@ -119,6 +150,15 @@ div.utilities > button:focus {
         block-size: 60%;
         inline-size: 40%;
     }
+
+    .text-container h2 {
+        padding: 0;
+        margin: 0 auto;
+    }
+    
+    .text-container h4 {
+        margin-block-start: 1rem;
+    }
 }
 
 @media only screen and (max-width: 410px) {
@@ -136,5 +176,6 @@ div.utilities > button:focus {
     div.utilities > button {
         block-size: 60%;
         inline-size: 45%;
+        padding-inline: 1rem;
     }
 }

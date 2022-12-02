@@ -1,6 +1,7 @@
 import "./home.css";
 import React, { useEffect } from "react";
 import { dictionaryList, languageOptions } from "../../languages";
+import welcomeBackgroundImage from "../../resources/welcome-background.png";
 
 export default function Home({ 
     userName, 
@@ -44,12 +45,19 @@ export default function Home({
                 <button onClick={handleLogout}>Logout</button>
             </header>
             <main>
-                <div className="welcome">
-                    <h2>
-                        {
-                            dictionaryList[language].home["welcome"] + " " + userName + dictionaryList[language].home["entry-text"]
-                        }
-                    </h2>
+                <div className="welcome" style={{ backgroundImage: `url(${welcomeBackgroundImage})`}}>
+                    <div className="text-container" >
+                        <h2>
+                            {
+                                dictionaryList[language].home["welcome"] + " " + userName + "!"
+                            }
+                        </h2>
+                        <h4>
+                            {
+                                dictionaryList[language].home["entry-text"]
+                            }
+                        </h4>
+                    </div>
                 </div>
                 <div className="utilities">
                     <button 

@@ -7,7 +7,7 @@
     "home": {
         "select": "Select language:",
         "welcome": "Welcome",
-        "entry-text": "! Get ready to chat with new and old friends",
+        "entry-text": "Get ready to chat with new and old friends",
         "start-room-btn": "Start new chatroom",
         "join-room-btn": "Enter existing chatroom"
     },

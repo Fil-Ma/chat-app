@@ -7,7 +7,7 @@
     "home": {
         "select": "Sélectionner la langue:",
         "welcome": "Bienvenue",
-        "entry-text": "! Préparez-vous à discuter avec de nouveaux et d'anciens amis",
+        "entry-text": "Préparez-vous à discuter avec de nouveaux et d'anciens amis",
         "start-room-btn": "Démarrer une nouvelle salle de chat",
         "join-room-btn": "Entrer dans une salle de discussion existante"
     },
