@@ -21,6 +21,7 @@ module.exports = class UserService {
         
         const user = { id, name, room };
         this.users.push(user);
+        console.log("added user", user);
         return user;
     }
 
@@ -31,13 +32,12 @@ module.exports = class UserService {
      * @returns {Object|null} returns user if found
      */
     removeUser(id) {
-        const index = this.users.find((user) => {
-            user.id === id
-        });
-     
-        if(index !== -1) {
-            return this.users.splice(index,1)[0];
-        }
+        const userIndex = this.users.findIndex((user) => user.id === id);
+
+        const removedUser = this.users.splice(userIndex, 1)[0];
+        console.log("removed user", removedUser);
+        return removedUser;
+        
     }
 
     /**
@@ -88,3 +88,5 @@ module.exports = class UserService {
     }
     
 }
+
+

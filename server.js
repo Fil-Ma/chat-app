@@ -11,8 +11,6 @@ const { param, validationResult } = require("express-validator");
 
 const { escapeHtml } = require("./server/utils");
 const app = express();
-
-const { io } = require("socket.io-client");
 const http = require("http").Server(app);
 
 const UserService = require("./server/users");
@@ -52,12 +50,20 @@ socketIO.on('connection', (socket) => {
 
     // handle socket connection
     socket.on('connect', () => {
+        console.log("# --------------------- #");
+        console.log("incoming connect event");
+        console.log("# --------------------- #");
+
         console.log(`${socket.id} user just connected!`);
     });
     
     // handle user connection to room
     socket.on('join', (data, callback) => {
         
+        console.log("# --------------------- #");
+        console.log("incoming join event");
+        console.log("# --------------------- #");
+
         let user = undefined;
 
         try {
@@ -105,6 +111,10 @@ socketIO.on('connection', (socket) => {
     // handle user leaving the room
     socket.on("leave", () => {
 
+        console.log("# --------------------- #");
+        console.log("incoming leave event");
+        console.log("# --------------------- #");
+
         const user = UserServiceInstance.removeUser(socket.id);
         
         socket.leave(user.room);
@@ -126,6 +136,10 @@ socketIO.on('connection', (socket) => {
     //sends the message to all the users on the server
     socket.on('sendMessage', (messageText, callback) => {
         
+        console.log("# --------------------- #");
+        console.log("incoming send message event");
+        console.log("# --------------------- #");
+
         const { value, error } = messageSchema.validate({ message: messageText });
         
         if (error) {
@@ -156,6 +170,11 @@ socketIO.on('connection', (socket) => {
     
     // handle socket disconnect
     socket.on('disconnect', () => {
+
+        console.log("# --------------------- #");
+        console.log("incoming disconnect event");
+        console.log("# --------------------- #");
+
         const user = UserServiceInstance.removeUser(socket.id);
         if (user) {
             socketIO.to(user.room).emit(
