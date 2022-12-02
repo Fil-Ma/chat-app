@@ -79,58 +79,84 @@ socketIO.on('connection', (socket) => {
                 name, 
                 room
             });
+            console.log(`a new user is joining room ${user.room}`, user);
+
+            // emit message to the user joining
+            socket.emit('message', { 
+                user: 'admin', 
+                text: `${user.name}, welcome to room ${user.room}.` 
+            });
+
+            // broadcast message to all users beside the user joining
+            socket.broadcast.to(user.room).emit(
+                'message', 
+                { 
+                    user: "admin",
+                    text: `${user.name}, has joined` 
+                }
+            );
+
+            socket.join(user.room);
+            
+            socketIO.to(user.room).emit('roomData', {
+                room: user.room,
+                users: UserServiceInstance.getUsersInRoom(user.room)
+            });
+
+            callback();
+
         } catch(err) {
             callback(err)
         }
-        
-        // emit message to the user joining
-        socket.emit('message', { 
-            user: 'admin', 
-            text: `${user.name}, welcome to room ${user.room}.` 
-        });
-
-        // broadcast message to all users beside the user joining
-        socket.broadcast.to(user.room).emit(
-            'message', 
-            { 
-                user: "admin",
-                text: `${user.name}, has joined` 
-            }
-        );
-
-        socket.join(user.room);
-        
-        socketIO.to(user.room).emit('roomData', {
-            room: user.room,
-            users: UserServiceInstance.getUsersInRoom(user.room)
-        });
-
-        callback();
     });
 
     // handle user leaving the room
-    socket.on("leave", () => {
+    socket.on("leave", (callback) => {
 
         console.log("# --------------------- #");
         console.log("incoming leave event");
         console.log("# --------------------- #");
 
-        const user = UserServiceInstance.removeUser(socket.id);
+        try {
+            const user = UserServiceInstance.removeUser(socket.id);
+            
+            console.log(`a user is leaving room ${user.room}`, user);
         
-        socket.leave(user.room);
+            socket.leave(user.room);
+    
+            socket.broadcast.to(user.room).emit(
+                'message', 
+                { 
+                    user: "admin",
+                    text: `${user.name}, has left the room` 
+                }
+            );
+            
+            socketIO.to(user.room).emit('roomData', {
+                room: user.room,
+                users: UserServiceInstance.getUsersInRoom(user.room)
+            });
+            
+            socket.leave(user.room);
 
-        socket.broadcast.to(user.room).emit(
-            'message', 
-            { 
-                user: "admin",
-                text: `${user.name}, has left the room` 
-            }
-        );
-        
-        socketIO.to(user.room).emit('roomData', {
-            room: user.room,
-            users: UserServiceInstance.getUsersInRoom(user.room)
-        });
+            socket.broadcast.to(user.room).emit(
+                'message', 
+                { 
+                    user: "admin",
+                    text: `${user.name}, has left the room` 
+                }
+            );
+            
+            socketIO.to(user.room).emit('roomData', {
+                room: user.room,
+                users: UserServiceInstance.getUsersInRoom(user.room)
+            });
+
+            callback();
+
+        } catch(err) {
+            callback(err);
+        } 
     });
   
     //sends the message to all the users on the server
