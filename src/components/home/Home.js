@@ -8,9 +8,13 @@ export default function Home({
     handleLogout,
     handleClickJoin,
     handleClickCreate,
+    handleHistoryBackFromRoom,
     language,
     setLanguage
 }) {
+    
+    // check if user clicked back from room
+    handleHistoryBackFromRoom();
     
     // handle language selection
     function handleLanguageSelection(event) {

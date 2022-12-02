@@ -173,16 +173,28 @@ export default function App() {
         setNewMessage("");
     };
 
-    // handle leave room
-    function handleClickLeaveRoom(event) {
-        event.preventDefault();
+    // general utility to handle leave event
+    function handleLeave() {
         socket.emit("leave");
         // reset states
         setRoom("");
         setRoomMessages([])
         setRoomUsers([]);
+    };
+
+    // handle click on leave button from chat room
+    function handleClickLeaveRoom(event) {
+        event.preventDefault();
+        handleLeave();
         navigate("/home");
     };
+
+    // handle user clicking back button from chat room
+    function handleHistoryBackFromRoom() {
+        if (room !== "") {
+            handleLeave();
+        }
+    }
 
     return (
         <Routes>
@@ -208,6 +220,7 @@ export default function App() {
                             language={language}
                             setLanguage={setLanguage}
                             handleLogout={logout}
+                            handleHistoryBackFromRoom={handleHistoryBackFromRoom}
                             handleClickCreate={handleCreateChatRoom}
                             handleClickJoin={handleClickJoinChatRoom} />
                     </PrivateRoute>
