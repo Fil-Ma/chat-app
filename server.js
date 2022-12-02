@@ -32,7 +32,7 @@ const userSchema = Joi.object({
 });
 
 const messageSchema = Joi.object({
-    message: Joi.string().min(1).required(),
+    message: Joi.string(),
 });
 
 /*
@@ -171,7 +171,7 @@ socketIO.on('connection', (socket) => {
         if (error) {
             callback(error);
         }
-        
+
         const user = UserServiceInstance.getUserById(socket.id);
         const safeMessage = escapeHtml(value.message);
 

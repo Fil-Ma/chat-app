@@ -166,11 +166,13 @@ export default function App() {
     // handle user sending message
     function handleSendMessage(event) {
         event.preventDefault();
-        socket.emit("sendMessage", newMessage, (error) => {
-            if(error) {
-                alert(error);
-            }
-        });
+        if (newMessage.length > 0) {
+            socket.emit("sendMessage", newMessage, (error) => {
+                if(error) {
+                    alert(error);
+                }
+            });
+        }
         setNewMessage("");
     };
 
