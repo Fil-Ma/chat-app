@@ -4,6 +4,10 @@ div.messages-container {
     block-size: 90%;
     overflow-y: scroll;
     margin-block-end: 0.5rem;
+    inline-size: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 div.system-msg {
@@ -15,9 +19,11 @@ div.user-msg {
 }
 
 .message {
-    margin-block: 1rem;
     padding: 0.5rem;
-    max-inline-size: 95%;
+    margin: 0.4rem 0.6rem 0.4rem 0;
+    max-inline-size: 50%;
+    inline-size: max-content;
+    border-radius: 0.5rem;
 }
 
 div.message:first-child {
@@ -39,4 +45,17 @@ div.message:first-child {
 
 .system-msg .sender {
     display: none;
+}
+
+/* personalize scrollbar */
+::-webkit-scrollbar {
+    inline-size: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+  
+::-webkit-scrollbar-thumb {
+    background: var(--dark-blue);
 }

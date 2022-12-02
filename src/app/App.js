@@ -256,6 +256,7 @@ export default function App() {
                                 <ChatRoom
                                     roomMessages={roomMessages}
                                     users={roomUsers}
+                                    userName={userName}
                                     handleLeave={handleClickLeaveRoom}
                                     handleSubmit={handleSendMessage}
                                     newMessage={newMessage}

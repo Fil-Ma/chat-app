@@ -1,7 +1,7 @@
 import "./chat-body.css";
 import React, { useEffect } from "react";
 
-export default function ChatBody({ roomMessages }) {
+export default function ChatBody({ roomMessages, userName }) {
     
     useEffect(() => {
         const msgContainer = document.getElementsByClassName("messages-container")[0];
@@ -17,8 +17,12 @@ export default function ChatBody({ roomMessages }) {
                             ? "system-msg message"
                             : "user-msg message"
 
+                        let floatStyle = message.user === userName
+                            ? { alignSelf: "flex-end"}
+                            : { alignSelf: "flex-start"}
+
                         return (
-                            <div className={clsName} key={index}>
+                            <div className={clsName} key={index} style={floatStyle}>
                                 <div className="text">
                                     <p>
                                         {message.text}

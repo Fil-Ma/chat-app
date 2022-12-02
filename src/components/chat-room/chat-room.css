@@ -1,8 +1,21 @@
 /* styling chat room */
+
+main.chat-room {
+    inline-size: 100vw;
+    block-size: 100vh;
+    position: relative;
+    background-color: #f2f9fb;
+}
+
 div.chat-container {
     inline-size: 70vw;
     block-size: 80vh;
-    margin: 9vh auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    background-color: #FFF;
     border: 1px solid rgba(0, 0, 0, 0.3);
     display: flex;
 }
@@ -10,18 +23,42 @@ div.chat-container {
 div.chat-body {
     inline-size: 75%;
     display: flex;
+    padding: 2rem;
     flex-direction: column;
 }
 
 .chat-container aside {
     inline-size: 25%;
+    padding: 2rem;
     border-inline-start: 1px solid rgba(0, 0, 0, 0.3);
     overflow: hidden;
 }
 
-div.chat-body,
-.chat-container aside {
-    padding: 2rem;
+.mobile-open-aside {
+    background-color: var(--dark-blue);
+    inline-size: 3rem;
+    block-size: 5rem;
+    z-index: 3;
+    border-start-start-radius: 0.5rem;
+    border-end-start-radius: 0.5rem;
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    display: none;
+}
+
+.mobile-open-aside:focus,
+.mobile-open-aside:hover {
+    cursor: pointer;
+}
+
+.fa-angles-right,
+.fa-angles-left {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 @media only screen and (max-width: 1400px) {
@@ -31,5 +68,19 @@ div.chat-body,
 }
 
 @media only screen and (max-width: 750px) {
-    /* mobile */
+    .chat-container aside {
+        position: fixed;
+        right: 0;
+        z-index: 5;
+        block-size: calc(80vh - 4rem);
+        display: none;
+    }
+
+    div.chat-body {
+        inline-size: 100%;
+    }
+
+    .mobile-open-aside {
+        display: block;
+    }
 }

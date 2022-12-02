@@ -26,7 +26,7 @@ export default function ChatTools({
                     onClick={handleLeave}
                 >{dictionaryList[language].chat.tools["leave-btn"]}</button>
             </div>
-            
+
             <ul>
                 {   
                     users.map((user, index) => {

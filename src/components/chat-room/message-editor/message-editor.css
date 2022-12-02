@@ -8,6 +8,8 @@ form.message-editor {
     block-size: 50%;
     inline-size: 80%;
     padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+    outline-color: var(--dark-blue);
 }
 
 .message-editor button[type="submit"] {
