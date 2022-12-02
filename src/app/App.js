@@ -122,6 +122,16 @@ export default function App() {
         navigate("/join_chatroom");
     };
 
+
+    // handle socket event join
+    function handleEmitJoin({ name, room }) {
+        socket.emit("join", {name, room}, (error) => {
+            if(error) {
+                alert(error);
+            }
+        });
+    }
+
     // handle user joining room
     function handleEnterChatRoom(event) {
         event.preventDefault();
@@ -139,12 +149,7 @@ export default function App() {
         }
         
         setJoinRoomError(null);
-
-        socket.emit("join", {name: userName, room}, (error) => {
-            if(error) {
-                alert(error);
-            }
-        });
+        handleEmitJoin({ name: userName, room });
         navigate(`/chat/${room}`);
     };
 
@@ -154,11 +159,7 @@ export default function App() {
         const roomId = Math.floor(Math.random()*9000) + 1000;
         const newRoom = roomId.toString();
         setRoom(newRoom);
-        socket.emit("join", {name: userName, room: newRoom}, (error) => {
-            if(error) {
-                alert(error);
-            }
-        });
+        handleEmitJoin({ name: userName, room: newRoom });
         navigate(`/chat/${newRoom}`);
     };
 
@@ -175,7 +176,11 @@ export default function App() {
 
     // general utility to handle leave event
     function handleLeave() {
-        socket.emit("leave");
+        socket.emit("leave", (error) => {
+            if(error) {
+                alert(error);
+            }
+        });
         // reset states
         setRoom("");
         setRoomMessages([])

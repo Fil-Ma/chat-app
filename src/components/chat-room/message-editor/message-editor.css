@@ -10,11 +10,12 @@ form.message-editor {
     padding: 0.5rem 1rem;
 }
 
-.message-editor input[type="submit"] {
+.message-editor button[type="submit"] {
     inline-size: calc(20% - 2rem - 4px);
     block-size: calc(50% + 1rem + 4px);
     padding: 0.5rem 0;
     align-items: center;
+    border-radius: 0;
     background-color: var(--dark-blue);
     color: #FFF;
     border: none;

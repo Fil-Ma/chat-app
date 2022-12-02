@@ -2,6 +2,7 @@
 button.leave-btn {
     padding: 0.4rem 0.8rem;
     background-color: var(--red-extra);
+    color: #FFF;
 }
 
 div.room-general-info {
@@ -10,3 +11,12 @@ div.room-general-info {
     justify-content: space-between;
     align-items: center;
 }
+
+.chat-tools ul > li {
+    margin-block-end: 0.5rem;
+}
+
+.fa-circle {
+    color: #64a338;
+}
+

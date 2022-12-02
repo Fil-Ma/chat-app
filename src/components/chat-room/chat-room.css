@@ -1,6 +1,6 @@
 /* styling chat room */
 div.chat-container {
-    inline-size: 60vw;
+    inline-size: 70vw;
     block-size: 80vh;
     margin: 9vh auto;
     border: 1px solid rgba(0, 0, 0, 0.3);
@@ -16,9 +16,20 @@ div.chat-body {
 .chat-container aside {
     inline-size: 25%;
     border-inline-start: 1px solid rgba(0, 0, 0, 0.3);
+    overflow: hidden;
 }
 
 div.chat-body,
 .chat-container aside {
     padding: 2rem;
+}
+
+@media only screen and (max-width: 1400px) {
+    div.chat-container {
+        inline-size: 90vw;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    /* mobile */
 }

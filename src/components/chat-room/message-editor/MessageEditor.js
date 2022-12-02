@@ -1,6 +1,9 @@
 import "./message-editor.css";
 import React from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
+
 export default function MessageEditor({ 
     setNewMessage, 
     newMessage,
@@ -15,7 +18,9 @@ export default function MessageEditor({
                 value={newMessage}
                 autoFocus
                 placeholder="Text" />
-            <input type="submit" value="Send" />
+            <button type="submit">
+                <FontAwesomeIcon icon={faLocationArrow} size="xl" />
+            </button>
         </form>
     )
 }

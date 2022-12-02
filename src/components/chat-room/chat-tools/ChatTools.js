@@ -3,6 +3,9 @@ import React, { useContext } from "react";
 import { LanguageContext } from "../../../app/contexts/LanguageContext";
 import { dictionaryList } from "../../../languages";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircle } from "@fortawesome/free-solid-svg-icons";
+
 export default function ChatTools({ 
     users, 
     room,
@@ -13,11 +16,11 @@ export default function ChatTools({
     return (
         <aside className="chat-tools">
             <div className="room-general-info">
-                <h3>
+                <h4>
                     {
                         dictionaryList[language].chat.tools["room-info"] + ": " + room
                     }
-                </h3> 
+                </h4> 
                 <button 
                     className="leave-btn" 
                     onClick={handleLeave}
@@ -29,7 +32,7 @@ export default function ChatTools({
                     users.map((user, index) => {
                         return (
                             <li key={index}>
-                                {user.name}
+                                <FontAwesomeIcon icon={faCircle} size="2xs" /> {user.name}
                             </li>
                         )
                     })
