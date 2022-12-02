@@ -5,7 +5,7 @@ export default function LoadingPage() {
     return (
         <div className="loading-page">
             <div className="loader-container">
-                <span class="loader"></span>
+                <span className="loader"></span>
             </div>
         </div>
     )
