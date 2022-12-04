@@ -2,7 +2,6 @@ import "./login.css";
 import React, { useContext } from "react";
 import { LanguageContext } from "../../app/contexts/LanguageContext";
 import { dictionaryList } from "../../languages";
-import chatLogo from "../../resources/chat-logo.png";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
@@ -43,7 +42,7 @@ export default function Login({
             </form>
             <div className="logo-container">
                 <div className="logo-image-container">
-                    <img src={chatLogo} alt="application logo" />
+                    <img src="/images/chat-logo.png" alt="application logo" />
                 </div>
                 <h2>Chat app</h2>
             </div>
