@@ -17,70 +17,32 @@ div.chat-container {
     z-index: 1;
     background-color: #FFF;
     border: 1px solid rgba(0, 0, 0, 0.3);
-    display: flex;
 }
 
 div.chat-body {
-    inline-size: 75%;
-    display: flex;
+    inline-size: calc(74% - 4rem);
     padding: 2rem;
-    flex-direction: column;
+    display: inline-block;
+    block-size: calc(100% - 4rem);
 }
 
 .chat-container aside {
-    inline-size: 25%;
+    inline-size: calc(25% - 4rem);
+    vertical-align: top;
     padding: 2rem;
+    block-size: calc(100% - 4rem);
+    display: inline-block;
     border-inline-start: 1px solid rgba(0, 0, 0, 0.3);
-    overflow: hidden;
-}
-
-.mobile-open-aside {
-    background-color: var(--dark-blue);
-    inline-size: 3rem;
-    block-size: 5rem;
-    z-index: 3;
-    border-start-start-radius: 0.5rem;
-    border-end-start-radius: 0.5rem;
-    position: fixed;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    display: none;
-}
-
-.mobile-open-aside:focus,
-.mobile-open-aside:hover {
-    cursor: pointer;
-}
-
-.fa-angles-right,
-.fa-angles-left {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 @media only screen and (max-width: 1400px) {
     div.chat-container {
-        inline-size: 90vw;
+        inline-size: 80vw;
     }
 }
 
-@media only screen and (max-width: 750px) {
-    .chat-container aside {
-        position: fixed;
-        right: 0;
-        z-index: 5;
-        block-size: calc(80vh - 4rem);
-        display: none;
-    }
-
-    div.chat-body {
-        inline-size: 100%;
-    }
-
-    .mobile-open-aside {
-        display: block;
+@media only screen and (max-width: 1200px) {
+    div.chat-container {
+        inline-size: 90vw;
     }
 }

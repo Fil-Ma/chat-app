@@ -4,26 +4,29 @@ div.messages-container {
     block-size: 90%;
     overflow-y: scroll;
     margin-block-end: 0.5rem;
-    inline-size: 100%;
     display: flex;
     flex-direction: column;
     border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    background-color: #f2f9fb;
 }
 
 div.system-msg {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: #e0e0e0;
+    font-size: 0.9rem;
 }
 
 div.user-msg {
-    background-color: var(--light-blue);
+    background-color: #FFF;
 }
 
 .message {
     padding: 0.5rem;
-    margin: 0.4rem 0.6rem 0.4rem 0;
-    max-inline-size: 50%;
-    inline-size: max-content;
+    margin: 0.4rem 0.6rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    max-inline-size: 70%;
     border-radius: 0.5rem;
+    word-wrap: break-word;
 }
 
 div.message:first-child {
@@ -35,7 +38,7 @@ div.message:first-child {
 }
 
 .sender p {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
 }
 
 .system-msg .text p {

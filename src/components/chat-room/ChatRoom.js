@@ -53,10 +53,6 @@ export default function ChatRoom({
                     users={users}
                     room={room} />
             </div>
-
-            <div className="mobile-open-aside" onClick={handleOpenMenuMobile}>
-                    <FontAwesomeIcon icon={faAnglesLeft} size="xl" inverse />
-            </div>
         </main>
     )
 }
