@@ -11,11 +11,12 @@ const ChatRoom = React.lazy(() => import("../components/chat-room/ChatRoom"));
 const JoinChatRoomForm = React.lazy(() => import("../components/join-form/JoinChatRoomForm"));
 const NotFound = React.lazy(() => import("../components/not-found-page/NotFound"));
 
+import { ENDPOINT_URL } from "../api";
 import { dictionaryList } from "../languages";
 import { checkUsernameTaken, checkRoomExists } from "../api/utils";
 import { LanguageContext } from "./contexts/LanguageContext";
 
-const socket = io('http://localhost:4000', { 
+const socket = io(ENDPOINT_URL, { 
     autoConnect: false 
 });
 
