@@ -16,7 +16,7 @@ const http = require("http").Server(app);
 const UserService = require("./server/users");
 const UserServiceInstance = new UserService();
 
-const PORT = 4000;
+const { PORT } = require("./server/config");
 
 app.use(cors());
 app.use(helmet());
