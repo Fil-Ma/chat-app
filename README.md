@@ -16,3 +16,19 @@ You can run the application from the root directory by executing the following c
 
 - first start the server: `npm run start:server`
 - then you can start the app: `npm run start:react`
+
+## Application Samples
+
+Here are presented some screenshots of the application's features.
+
+### Login / Landing Page
+
+![Login](./src/resources/samples/login.png)
+
+### Homepage
+
+![Home page](./src/resources/samples/home.png)
+
+### Chat room
+
+![Chat room](./src/resources/samples/chat_room.png)
