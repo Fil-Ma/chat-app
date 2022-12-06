@@ -27,7 +27,7 @@ app.use(helmet());
 */
 
 const userSchema = Joi.object({
-    name: Joi.string().alphanum().min(3).max(12).required(),
+    name: Joi.string().min(3).max(12).required(),
     room: Joi.string().min(4).max(4).required(),
 });
 
@@ -63,9 +63,9 @@ socketIO.on('connection', (socket) => {
         console.log("# --------------------- #");
         console.log("incoming join event");
         console.log("# --------------------- #");
-
+        
         let user = undefined;
-
+        
         try {
             const { value, error } = userSchema.validate(data);
             if (error) {
@@ -230,11 +230,11 @@ app.get(
                 min: 3, 
                 max: 12
             })
-            .matches(/^[a-z\d]+$/i)
+            .matches(/^[a-zA-Z0-9-_]+$/i)
     ],
     (req, res, next) => {
         const { userName } = req.params;
-
+        
         try {
             const errors = validationResult(req).array();
             if (errors.length > 0) {

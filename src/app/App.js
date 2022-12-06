@@ -86,22 +86,24 @@ export default function App() {
 
             // check if userName already exists
             checkUsernameTaken(userName, language);
+
+            // login
+            setIsLoggedIn(true);
+            setLoginError(null);
+            navigate("/home");
+            
+            // socket connection
+            if (!socketIsConnected) {
+                socket.connect();
+                setSocketIsConnected(true);
+            }
+
         } catch(err) {
             setLoginError(err);
             setUserName("");
+            setIsLoggedIn(false);
             return;
         }
-
-        // login
-        setIsLoggedIn(true);
-        setLoginError(null);
-        navigate("/home");
-        // socket connection
-        if (!socketIsConnected) {
-            socket.connect();
-            setSocketIsConnected(true);
-        }
-        
     };
 
     // handle user logout

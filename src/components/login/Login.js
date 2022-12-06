@@ -25,7 +25,7 @@ export default function Login({
                     autoFocus
                     value={userName}
                     title="Only letters and numbers are allowed, no special characters"
-                    pattern="^[A-Za-z\d]+$"
+                    pattern="^[a-zA-Z0-9-_]+$"
                     onChange={(event) => setUserName(event.target.value)}
                     required />
                 { 
